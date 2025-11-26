@@ -10,6 +10,11 @@
     "medium": "anhvlttfs",
     "twitter": "anhvlttfs"
   },
+  "newsletter": {
+    "showTwitterBanner": true,
+    "currentCount": "2,000",
+    "revueUsername": "roadmapsh"
+  },
   "seo": {
     "title": "VLTA's Blog",
     "description": "Thoughts, stories and ideas",
