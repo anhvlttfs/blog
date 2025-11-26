@@ -1,0 +1,26 @@
+{
+    "title": "VLTA's Blog",
+    "subtitle": "A blog about programming, technology, and software development.",
+    "owner": {
+        "name": "Vo Luu Tuong Anh",
+        "email": "anhvlt.tfs@outlook.com"
+    },
+    "social": {
+        "github": "anhvlttfs",
+        "medium": "anhvlttfs",
+        "twitter": "anhvlttfs"
+    },
+    "seo": {
+        "title": "VLTA's Blog",
+        "description": "A blog about programming, technology, and software development.",
+        "author": "Vo Luu Tuong Anh",
+        "keywords": [
+            "blog",
+            "developer blog",
+            "engineering blog",
+            "software blog",
+            "programming blog"
+        ]
+    },
+    "cname": "blog.anhvlt.io.vn"
+}
