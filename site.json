@@ -7,11 +7,10 @@
   },
   "social": {
     "github": "anhvlttfs",
-    "medium": "anhvlttfs",
-    "twitter": "anhvlttfs"
+    "medium": "anhvlttfs"
   },
   "newsletter": {
-    "showTwitterBanner": true,
+    "showTwitterBanner": false,
     "currentCount": "2,000",
     "revueUsername": "roadmapsh"
   },
