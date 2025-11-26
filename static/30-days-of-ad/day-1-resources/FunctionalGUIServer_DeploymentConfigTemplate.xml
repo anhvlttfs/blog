@@ -1,0 +1,365 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>System.Collections.ObjectModel.Collection`1[[System.Management.Automation.PSObject, System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]]</T>
+      <T>System.Object</T>
+    </TN>
+    <LST>
+      <Obj RefId="1">
+        <TN RefId="1">
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/ServerComponent_EnhancedStorage</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ServerComponent_EnhancedStorage</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance</T>
+          <T>System.Object</T>
+        </TN>
+        <ToString>ServerComponent_EnhancedStorage</ToString>
+        <Props>
+          <S N="PSComputerName">FUNC-GUI-TEMP</S>
+        </Props>
+        <MS>
+          <I32 N="NumericId">440</I32>
+          <Obj N="__ClassMetadata" RefId="2">
+            <TN RefId="2">
+              <T>System.Collections.ArrayList</T>
+              <T>System.Object</T>
+            </TN>
+            <LST>
+              <Obj RefId="3">
+                <MS>
+                  <S N="ClassName">MSFT_ServerManagerServerComponentDescriptor</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">784683544</I32>
+                  <S N="MiXml">&lt;CLASS NAME="MSFT_ServerManagerServerComponentDescriptor"&gt;&lt;QUALIFIER NAME="dynamic" TYPE="boolean"&gt;&lt;VALUE&gt;true&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="locale" TYPE="sint32" TOSUBCLASS="false"&gt;&lt;VALUE&gt;1033&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="provider" TYPE="string"&gt;&lt;VALUE&gt;deploymentprovider&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;/CLASS&gt;</S>
+                </MS>
+              </Obj>
+              <Obj RefId="4">
+                <MS>
+                  <S N="ClassName">ServerComponent_EnhancedStorage</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">784832936</I32>
+                  <S N="MiXml">&lt;CLASS NAME="ServerComponent_EnhancedStorage" SUPERCLASS="MSFT_ServerManagerServerComponentDescriptor"&gt;&lt;QUALIFIER NAME="dynamic" TYPE="boolean"&gt;&lt;VALUE&gt;true&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="provider" TYPE="string"&gt;&lt;VALUE&gt;deploymentprovider&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="ClassVersion" TYPE="string"&gt;&lt;VALUE&gt;0.0.0&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="DisplayName" TYPE="string" TRANSLATABLE="true"&gt;&lt;VALUE&gt;EnhancedStorage&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;/CLASS&gt;</S>
+                </MS>
+              </Obj>
+            </LST>
+          </Obj>
+        </MS>
+      </Obj>
+      <Obj RefId="5">
+        <TN RefId="3">
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/ServerComponent_File_Services</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ServerComponent_File_Services</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance</T>
+          <T>System.Object</T>
+        </TN>
+        <ToString>ServerComponent_File_Services</ToString>
+        <Props>
+          <S N="PSComputerName">FUNC-GUI-TEMP</S>
+        </Props>
+        <MS>
+          <I32 N="NumericId">6</I32>
+          <Obj N="__ClassMetadata" RefId="6">
+            <TNRef RefId="2" />
+            <LST>
+              <Obj RefId="7">
+                <MS>
+                  <S N="ClassName">MSFT_ServerManagerServerComponentDescriptor</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">784683544</I32>
+                </MS>
+              </Obj>
+              <Obj RefId="8">
+                <MS>
+                  <S N="ClassName">ServerComponent_File_Services</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">784841256</I32>
+                  <S N="MiXml">&lt;CLASS NAME="ServerComponent_File_Services" SUPERCLASS="MSFT_ServerManagerServerComponentDescriptor"&gt;&lt;QUALIFIER NAME="dynamic" TYPE="boolean"&gt;&lt;VALUE&gt;true&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="provider" TYPE="string"&gt;&lt;VALUE&gt;deploymentprovider&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="ClassVersion" TYPE="string"&gt;&lt;VALUE&gt;0.0.0&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="DisplayName" TYPE="string" TRANSLATABLE="true"&gt;&lt;VALUE&gt;File-Services&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;/CLASS&gt;</S>
+                </MS>
+              </Obj>
+            </LST>
+          </Obj>
+        </MS>
+      </Obj>
+      <Obj RefId="9">
+        <TN RefId="4">
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/ServerComponent_FS_FileServer</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ServerComponent_FS_FileServer</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance</T>
+          <T>System.Object</T>
+        </TN>
+        <ToString>ServerComponent_FS_FileServer</ToString>
+        <Props>
+          <S N="PSComputerName">FUNC-GUI-TEMP</S>
+        </Props>
+        <MS>
+          <I32 N="NumericId">255</I32>
+          <Obj N="__ClassMetadata" RefId="10">
+            <TNRef RefId="2" />
+            <LST>
+              <Obj RefId="11">
+                <MS>
+                  <S N="ClassName">MSFT_ServerManagerServerComponentDescriptor</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">784683544</I32>
+                </MS>
+              </Obj>
+              <Obj RefId="12">
+                <MS>
+                  <S N="ClassName">ServerComponent_FS_FileServer</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">786154920</I32>
+                  <S N="MiXml">&lt;CLASS NAME="ServerComponent_FS_FileServer" SUPERCLASS="MSFT_ServerManagerServerComponentDescriptor"&gt;&lt;QUALIFIER NAME="dynamic" TYPE="boolean"&gt;&lt;VALUE&gt;true&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="provider" TYPE="string"&gt;&lt;VALUE&gt;deploymentprovider&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="ClassVersion" TYPE="string"&gt;&lt;VALUE&gt;0.0.0&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="DisplayName" TYPE="string" TRANSLATABLE="true"&gt;&lt;VALUE&gt;FS-FileServer&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;/CLASS&gt;</S>
+                </MS>
+              </Obj>
+            </LST>
+          </Obj>
+        </MS>
+      </Obj>
+      <Obj RefId="13">
+        <TN RefId="5">
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/ServerComponent_RSAT</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ServerComponent_RSAT</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance</T>
+          <T>System.Object</T>
+        </TN>
+        <ToString>ServerComponent_RSAT</ToString>
+        <Props>
+          <S N="PSComputerName">FUNC-GUI-TEMP</S>
+        </Props>
+        <MS>
+          <I32 N="NumericId">67</I32>
+          <Obj N="__ClassMetadata" RefId="14">
+            <TNRef RefId="2" />
+            <LST>
+              <Obj RefId="15">
+                <MS>
+                  <S N="ClassName">MSFT_ServerManagerServerComponentDescriptor</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">784683544</I32>
+                </MS>
+              </Obj>
+              <Obj RefId="16">
+                <MS>
+                  <S N="ClassName">ServerComponent_RSAT</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">786588696</I32>
+                  <S N="MiXml">&lt;CLASS NAME="ServerComponent_RSAT" SUPERCLASS="MSFT_ServerManagerServerComponentDescriptor"&gt;&lt;QUALIFIER NAME="dynamic" TYPE="boolean"&gt;&lt;VALUE&gt;true&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="provider" TYPE="string"&gt;&lt;VALUE&gt;deploymentprovider&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="ClassVersion" TYPE="string"&gt;&lt;VALUE&gt;8.0.0&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="DisplayName" TYPE="string" TRANSLATABLE="true"&gt;&lt;VALUE&gt;RSAT&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;/CLASS&gt;</S>
+                </MS>
+              </Obj>
+            </LST>
+          </Obj>
+        </MS>
+      </Obj>
+      <Obj RefId="17">
+        <TN RefId="6">
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/ServerComponent_RSAT_Feature_Tools</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ServerComponent_RSAT_Feature_Tools</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance</T>
+          <T>System.Object</T>
+        </TN>
+        <ToString>ServerComponent_RSAT_Feature_Tools</ToString>
+        <Props>
+          <S N="PSComputerName">FUNC-GUI-TEMP</S>
+        </Props>
+        <MS>
+          <I32 N="NumericId">265</I32>
+          <Obj N="__ClassMetadata" RefId="18">
+            <TNRef RefId="2" />
+            <LST>
+              <Obj RefId="19">
+                <MS>
+                  <S N="ClassName">MSFT_ServerManagerServerComponentDescriptor</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">784683544</I32>
+                </MS>
+              </Obj>
+              <Obj RefId="20">
+                <MS>
+                  <S N="ClassName">ServerComponent_RSAT_Feature_Tools</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">786611576</I32>
+                  <S N="MiXml">&lt;CLASS NAME="ServerComponent_RSAT_Feature_Tools" SUPERCLASS="MSFT_ServerManagerServerComponentDescriptor"&gt;&lt;QUALIFIER NAME="dynamic" TYPE="boolean"&gt;&lt;VALUE&gt;true&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="provider" TYPE="string"&gt;&lt;VALUE&gt;deploymentprovider&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="ClassVersion" TYPE="string"&gt;&lt;VALUE&gt;8.0.0&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="DisplayName" TYPE="string" TRANSLATABLE="true"&gt;&lt;VALUE&gt;RSAT-Feature-Tools&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;/CLASS&gt;</S>
+                </MS>
+              </Obj>
+            </LST>
+          </Obj>
+        </MS>
+      </Obj>
+      <Obj RefId="21">
+        <TN RefId="7">
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/ServerComponent_RSAT_System_Insights</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ServerComponent_RSAT_System_Insights</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance</T>
+          <T>System.Object</T>
+        </TN>
+        <ToString>ServerComponent_RSAT_System_Insights</ToString>
+        <Props>
+          <S N="PSComputerName">FUNC-GUI-TEMP</S>
+        </Props>
+        <MS>
+          <I32 N="NumericId">1045</I32>
+          <Obj N="__ClassMetadata" RefId="22">
+            <TNRef RefId="2" />
+            <LST>
+              <Obj RefId="23">
+                <MS>
+                  <S N="ClassName">MSFT_ServerManagerServerComponentDescriptor</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">784683544</I32>
+                </MS>
+              </Obj>
+              <Obj RefId="24">
+                <MS>
+                  <S N="ClassName">ServerComponent_RSAT_System_Insights</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">786713944</I32>
+                  <S N="MiXml">&lt;CLASS NAME="ServerComponent_RSAT_System_Insights" SUPERCLASS="MSFT_ServerManagerServerComponentDescriptor"&gt;&lt;QUALIFIER NAME="dynamic" TYPE="boolean"&gt;&lt;VALUE&gt;true&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="provider" TYPE="string"&gt;&lt;VALUE&gt;deploymentprovider&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="ClassVersion" TYPE="string"&gt;&lt;VALUE&gt;0.0.0&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="DisplayName" TYPE="string" TRANSLATABLE="true"&gt;&lt;VALUE&gt;RSAT-System-Insights&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;/CLASS&gt;</S>
+                </MS>
+              </Obj>
+            </LST>
+          </Obj>
+        </MS>
+      </Obj>
+      <Obj RefId="25">
+        <TN RefId="8">
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/ServerComponent_Search_Service</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ServerComponent_Search_Service</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance</T>
+          <T>System.Object</T>
+        </TN>
+        <ToString>ServerComponent_Search_Service</ToString>
+        <Props>
+          <S N="PSComputerName">FUNC-GUI-TEMP</S>
+        </Props>
+        <MS>
+          <I32 N="NumericId">432</I32>
+          <Obj N="__ClassMetadata" RefId="26">
+            <TNRef RefId="2" />
+            <LST>
+              <Obj RefId="27">
+                <MS>
+                  <S N="ClassName">MSFT_ServerManagerServerComponentDescriptor</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">784683544</I32>
+                </MS>
+              </Obj>
+              <Obj RefId="28">
+                <MS>
+                  <S N="ClassName">ServerComponent_Search_Service</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">786712904</I32>
+                  <S N="MiXml">&lt;CLASS NAME="ServerComponent_Search_Service" SUPERCLASS="MSFT_ServerManagerServerComponentDescriptor"&gt;&lt;QUALIFIER NAME="dynamic" TYPE="boolean"&gt;&lt;VALUE&gt;true&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="provider" TYPE="string"&gt;&lt;VALUE&gt;deploymentprovider&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="ClassVersion" TYPE="string"&gt;&lt;VALUE&gt;0.0.0&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="DisplayName" TYPE="string" TRANSLATABLE="true"&gt;&lt;VALUE&gt;Search-Service&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;/CLASS&gt;</S>
+                </MS>
+              </Obj>
+            </LST>
+          </Obj>
+        </MS>
+      </Obj>
+      <Obj RefId="29">
+        <TN RefId="9">
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/ServerComponent_Setup_and_Boot_Event_Collection</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ServerComponent_Setup_and_Boot_Event_Collection</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance</T>
+          <T>System.Object</T>
+        </TN>
+        <ToString>ServerComponent_Setup_and_Boot_Event_Collection</ToString>
+        <Props>
+          <S N="PSComputerName">FUNC-GUI-TEMP</S>
+        </Props>
+        <MS>
+          <I32 N="NumericId">1011</I32>
+          <Obj N="__ClassMetadata" RefId="30">
+            <TNRef RefId="2" />
+            <LST>
+              <Obj RefId="31">
+                <MS>
+                  <S N="ClassName">MSFT_ServerManagerServerComponentDescriptor</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">784683544</I32>
+                </MS>
+              </Obj>
+              <Obj RefId="32">
+                <MS>
+                  <S N="ClassName">ServerComponent_Setup_and_Boot_Event_Collection</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">786714984</I32>
+                  <S N="MiXml">&lt;CLASS NAME="ServerComponent_Setup_and_Boot_Event_Collection" SUPERCLASS="MSFT_ServerManagerServerComponentDescriptor"&gt;&lt;QUALIFIER NAME="dynamic" TYPE="boolean"&gt;&lt;VALUE&gt;true&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="provider" TYPE="string"&gt;&lt;VALUE&gt;deploymentprovider&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="ClassVersion" TYPE="string"&gt;&lt;VALUE&gt;10.0.0&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="DisplayName" TYPE="string" TRANSLATABLE="true"&gt;&lt;VALUE&gt;Setup-and-Boot-Event-Collection&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;/CLASS&gt;</S>
+                </MS>
+              </Obj>
+            </LST>
+          </Obj>
+        </MS>
+      </Obj>
+      <Obj RefId="33">
+        <TN RefId="10">
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/ServerComponent_System_Insights</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/Microsoft/Windows/ServerManager/MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#ServerComponent_System_Insights</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance#MSFT_ServerManagerServerComponentDescriptor</T>
+          <T>Microsoft.Management.Infrastructure.CimInstance</T>
+          <T>System.Object</T>
+        </TN>
+        <ToString>ServerComponent_System_Insights</ToString>
+        <Props>
+          <S N="PSComputerName">FUNC-GUI-TEMP</S>
+        </Props>
+        <MS>
+          <I32 N="NumericId">1044</I32>
+          <Obj N="__ClassMetadata" RefId="34">
+            <TNRef RefId="2" />
+            <LST>
+              <Obj RefId="35">
+                <MS>
+                  <S N="ClassName">MSFT_ServerManagerServerComponentDescriptor</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">784683544</I32>
+                </MS>
+              </Obj>
+              <Obj RefId="36">
+                <MS>
+                  <S N="ClassName">ServerComponent_System_Insights</S>
+                  <S N="Namespace">ROOT/Microsoft/Windows/ServerManager</S>
+                  <S N="ServerName">FUNC-GUI-TEMP</S>
+                  <I32 N="Hash">768379688</I32>
+                  <S N="MiXml">&lt;CLASS NAME="ServerComponent_System_Insights" SUPERCLASS="MSFT_ServerManagerServerComponentDescriptor"&gt;&lt;QUALIFIER NAME="dynamic" TYPE="boolean"&gt;&lt;VALUE&gt;true&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="provider" TYPE="string"&gt;&lt;VALUE&gt;deploymentprovider&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="ClassVersion" TYPE="string"&gt;&lt;VALUE&gt;0.0.0&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;QUALIFIER NAME="DisplayName" TYPE="string" TRANSLATABLE="true"&gt;&lt;VALUE&gt;System-Insights&lt;/VALUE&gt;&lt;/QUALIFIER&gt;&lt;/CLASS&gt;</S>
+                </MS>
+              </Obj>
+            </LST>
+          </Obj>
+        </MS>
+      </Obj>
+    </LST>
+  </Obj>
+</Objs>
