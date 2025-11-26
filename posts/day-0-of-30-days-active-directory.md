@@ -13,7 +13,7 @@ This is the day zero of **TheFlightSims Challenge** - A 14-day challenge to set 
 To be honest, I only have
 
 - [A Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/) (8GB of RAM, 256GB of SSD, and 64GB of SD Card)
-- A [Dell OptiPlex 7050](https://www.dell.com/support/product-details/en-vn/product/optiplex-7050-desktop/drivers) (16GB of RAM, 256GB of SSD, and 256GB of HDD)
+- A [Dell OptiPlex 7050](https://www.dell.com/support/product-details/en-vn/product/optiplex-7050-desktop/drivers) (16GB of RAM, 238GB of SSD, and 298GB of HDD)
 
 Additionally, I also have the following equipment:
 
@@ -44,7 +44,7 @@ Why? Because:
 Since all servers are running bare metal hypervisors, I decided to run those servers with hypervisor software.
 
 - Raspberry Pi 5 will run [LXD](https://canonical.com/lxd) as the management layer, running on top of Ubuntu Server 24.04 LTS.
-- Dell OptiPlex 7050 will run [Windows Server 2022](https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-in-windows-server-2022) with the [Hyper-V](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/) role enabled. It will host Windows Server VMs, since Active Directory is the core service of my home network, and it runs best on Windows Server VMs hosted on Hyper-V. *Note that the Windows Server edition must be Datacenter, because the [Standard Edition only supports up to 2 VMs of Windows Server instance running](https://www.microsoft.com/licensing/docs/documents/download/Core-based_licensing_guidance.pdf).*
+- Dell OptiPlex 7050 will run [Windows Server 2022](https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-in-windows-server-2022) with the [Hyper-V](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/) role enabled. It will host Windows Server VMs, since Active Directory is the core service of my home network, and it runs best on Windows Server VMs hosted on Hyper-V. *Note that the Windows Server edition must be Datacenter, because the [Standard Edition only supports up to 2 VMs of Windows Server instance running](https://blog.anhvlt.io.vn/homelab-setup/docs/Core-based_licensing_guidance.pdf).*
 
 Moreover, some roles and services must be installed for manageability, security, or backup.
 
@@ -76,7 +76,7 @@ Since this is only for the home network, the TLDs of the domain should ideally n
 
 As the best practice, look for [registered TLDs on IANA](https://www.iana.org/domains/root/db) to prevent conflicts for a local domain name.
 
-In this case, I will use the domain `workshop.neko`. Alternatively, `web.neko` is used for web deployments. (eg. IIS host or GitLab Pages)
+In this case, I will use the domain `workshop.neko`. Alternatively, `web.neko` is used for web deployments. (eg. IIS host or GitLab Pages).
 
 ### Private IPv4 address map
 
@@ -235,16 +235,16 @@ I segmented it into parts, as you can see in the table below
 
 ### On the HV01 (running Windows Server 2022)
 
-HV01 on Dell OptiPlex 7050 has two disks: a 256GB SSD NVMe and a 256GB SATA HDD, both in good condition.
+HV01 on Dell OptiPlex 7050 has two disks, both in good condition.
 
 Since the system must also have a backup solution, I decided to do the following partition scheme:
 
 - On the SSD: Since the SSD has fast I/O, it will become the primary disk, where it holds both the host operating system and all VM contents (incl. disks, configurations, and snapshots).
-- On the HDD: It is much slower, but more reliable, so it becomes the secondary disk for holding backup contents, incl. backup of host machine, backup of VMs (VMs will send backups via SMB to the host)
+- On the HDD: It is much slower, but more reliable, so it becomes the secondary disk for holding backup contents, incl. backup of host machine, backup of VMs (VMs will send backups via SMB to the host).
 
 ### On the HV02 (running Ubuntu Server 24.04 LTS)
 
-HV02 on Raspberry Pi 5 has 2 disks: a 64GB SD card and a 256GB SSD NVMe
+HV02 on Raspberry Pi 5 has 2 disks, both in good condition.
 
 - On SSD: Since it stores both the backup content sent from HV01 over the network, it should be at least the size of the OptiPlex 7050 backup partition, and the rest for the OS and all VMs.
 - On the SD card: It is much slower than the SSD, so it will become a backup solution for the operating system on Raspberry Pi 5.
@@ -275,7 +275,7 @@ From the above needs, I sum up into a quick calculation
             <td rowspan="4">SSD</td>
             <td rowspan="4">0</td>
             <td>0</td>
-            <td>50 MB</td>
+            <td>100 MB</td>
             <td>Boot Partition (UEFI)</td>
             <td>This partition is automatically created through WinPE</td>
         </tr>
@@ -287,7 +287,7 @@ From the above needs, I sum up into a quick calculation
         </tr>
         <tr>
             <td>2</td>
-            <td>700 MB</td>
+            <td>737 MB</td>
             <td>Windows Recovery Environment</td>
             <td>This partition is automatically created through WinPE</td>
         </tr>
@@ -316,13 +316,13 @@ From the above needs, I sum up into a quick calculation
             <td rowspan="4">SSD</td>
             <td rowspan="4">0</td>
             <td>0</td>
-            <td>50 MB</td>
+            <td>530 MB</td>
             <td>Raspberry Pi boot partition</td>
             <td>-</td>
         </tr>
         <tr>
             <td>1</td>
-            <td>50 GB</td>
+            <td>51 GB</td>
             <td>Host Operating System (Ubuntu 24.04 LTS)</td>
             <td>This partition is locked at 4GB at the time of creation using Raspberry Pi Imager, but you can mount it on Ubuntu Desktop to resize the partition.</td>
         </tr>
@@ -334,7 +334,7 @@ From the above needs, I sum up into a quick calculation
         </tr>
         <tr>
             <td>3</td>
-            <td>200 GB</td>
+            <td>190 GB</td>
             <td>Backup partition over SMB</td>
             <td>This partition is <strong>for backup service via SMB from Windows Server</strong>. Host Ubuntu should not backup into this.</td>
         </tr>
