@@ -70,28 +70,16 @@ Moreover, some roles and services must be installed for manageability, security,
 
 For servers as VMs running on Windows Server Hyper-V:
 
-1. Two domain controllers
-   - Active Directory Domain Services (AD DS)
-   - Active Directory Certificate Services (AD CS)
-   - DNS Server
-2. Authentication server
-   - Active Directory Federation Services (AD FS)
-   - Network Policy and Access Services (NPS)
-   - And all RSAT features
-3. Database server
-   - SQL Server 2022
-4. Web Server
-   - Web Service (IIS)
+1. Two domain controllers: Active Directory Domain Services (AD DS), Active Directory Certificate Services (AD CS), and DNS Server
+2. Authentication server: Active Directory Federation Services (AD FS), Network Policy and Access Services (NPS), and all RSAT features
+3. Database server: SQL Server 2022
+4. Web Server: Web Service (IIS)
 
 For the server as VMs running on LXD:
 
-1. The exit relay DNS server
-   - Pi-Hole Ad-blocker
-2. DevOps server
-   - GitLab EE
-3. DevOps Runner
-   - GitLab Runner
-   - Docker CE
+1. The exit relay DNS server: Pi-Hole Ad-blocker
+2. DevOps server: GitLab EE
+3. DevOps Runner: GitLab Runner, Docker CE
 
 ## Networking
 
@@ -111,27 +99,149 @@ I expect that there are under 100 clients will join into my network, I will use 
 
 I segmented it into parts, as you can see in the table below
 
-| Address Range | Max devices | Purposes |
-| -- | -- | -- |
-| `192.168.1.1` - `192.168.1.4` | 4 | Routers and Essential Networking Devices (Switches, Load Balancing) |
-| `192.168.1.5` - `192.168.1.9` | 5 | Hypervisor server range |
-| `192.168.1.10` - `192.168.1.29` | 20 | **HV01** VMs range |
-| `192.168.1.30` - `192.168.1.49` | 20 | **HV02** VMs range |
-| `192.168.1.50` - `192.168.1.109` | 60 | Reserved for VMs in different hypervisor hosts |
-| `192.168.1.110` - `192.168.1.254` | 145 | Client range |
+<table>
+<thead>
+<tr>
+<th>Address Range</th>
+<th>Max devices</th>
+<th>Purposes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>192.168.1.1</code> - <code>192.168.1.4</code></td>
+<td>4</td>
+<td>Routers and Essential Networking Devices (Switches, Load Balancing)</td>
+</tr>
+<tr>
+<td><code>192.168.1.5</code> - <code>192.168.1.9</code></td>
+<td>5</td>
+<td>Hypervisor server range</td>
+</tr>
+<tr>
+<td><code>192.168.1.10</code> - <code>192.168.1.29</code></td>
+<td>20</td>
+<td><strong>HV01</strong> VMs range</td>
+</tr>
+<tr>
+<td><code>192.168.1.30</code> - <code>192.168.1.49</code></td>
+<td>20</td>
+<td><strong>HV02</strong> VMs range</td>
+</tr>
+<tr>
+<td><code>192.168.1.50</code> - <code>192.168.1.109</code></td>
+<td>60</td>
+<td>Reserved for VMs in different hypervisor hosts</td>
+</tr>
+<tr>
+<td><code>192.168.1.110</code> - <code>192.168.1.254</code></td>
+<td>145</td>
+<td>Client range</td>
+</tr>
+</tbody>
+</table>
 
 ### Actual device naming & IP address assignment
 
-| Server Name | Installed Roles based on Software | Operating System | IPv4 assignment | IPv6 assignment (postfix) | Note |
-| -- | -- | -- | -- | -- | -- |
-| - | Router | - | `192.168.1.1` | - | Router (TP-Link) |
-| HV01 | Hyper-V | Windows Server 2022 | `192.168.1.5` | - | Hypervisor host |
-| HV02 | LXD | Ubuntu 24.04 LTS | `192.168.1.6` | - | Hypervisor host |
-| DC01 | AD DS, AD CS, DNS Server | Windows Server 2022 | `192.168.1.10` | `::fff8` | Primary Domain Controller |
-| DC02 | AD DS, AD CS, DNS Server | Windows Server 2022 | `192.168.1.11` | `::fff9` | Secondary Domain Controller |
-| AUTH | AD FS, NPS, RSATs | Windows Server 2022 | `192.168.1.20` | - | Federation Services and RADIUS |
-| WEB | Web Server (IIS, without .NET 3.5), Windows Container | Windows Server 2022 | `192.168.1.21` | - | Web Services, with GitLab Runner support |
-| DB | SQL Server 2022 | Windows Server 2022 | `192.168.1.22` | - | Database Server |
-| pihole | Pi-Hole DNS Server | Ubuntu 24.04 LTS | `192.168.1.30` | - | DNS Resolver Server |
-| gitlab-devops | GitLab EE | Ubuntu 24.04 LTS | `192.168.1.35` | - | GitLab EE instance |
-| gitlab-runner | GitLab Runner, Docker CE | Ubuntu 24.04 LTS | `192.168.1.40` | - | GitLab Runner instance |
+<table>
+<thead>
+<tr>
+<th>Server Name</th>
+<th>Installed Roles based on Software</th>
+<th>Operating System</th>
+<th>IPv4 assignment</th>
+<th>IPv6 assignment (postfix)</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>Router</td>
+<td>-</td>
+<td><code>192.168.1.1</code></td>
+<td>-</td>
+<td>Router (TP-Link)</td>
+</tr>
+<tr>
+<td>HV01</td>
+<td>Hyper-V</td>
+<td>Windows Server 2022</td>
+<td><code>192.168.1.5</code></td>
+<td>-</td>
+<td>Hypervisor host</td>
+</tr>
+<tr>
+<td>HV02</td>
+<td>LXD</td>
+<td>Ubuntu 24.04 LTS</td>
+<td><code>192.168.1.6</code></td>
+<td>-</td>
+<td>Hypervisor host</td>
+</tr>
+<tr>
+<td>DC01</td>
+<td>AD DS, AD CS, DNS Server</td>
+<td>Windows Server 2022</td>
+<td><code>192.168.1.10</code></td>
+<td><code>::fff8</code></td>
+<td>Primary Domain Controller</td>
+</tr>
+<tr>
+<td>DC02</td>
+<td>AD DS, AD CS, DNS Server</td>
+<td>Windows Server 2022</td>
+<td><code>192.168.1.11</code></td>
+<td><code>::fff9</code></td>
+<td>Secondary Domain Controller</td>
+</tr>
+<tr>
+<td>AUTH</td>
+<td>AD FS, NPS, RSATs</td>
+<td>Windows Server 2022</td>
+<td><code>192.168.1.20</code></td>
+<td>-</td>
+<td>Federation Services and RADIUS</td>
+</tr>
+<tr>
+<td>WEB</td>
+<td>Web Server (IIS, without .NET 3.5), Windows Container</td>
+<td>Windows Server 2022</td>
+<td><code>192.168.1.21</code></td>
+<td>-</td>
+<td>Web Services, with GitLab Runner support</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>SQL Server 2022</td>
+<td>Windows Server 2022</td>
+<td><code>192.168.1.22</code></td>
+<td>-</td>
+<td>Database Server</td>
+</tr>
+<tr>
+<td>pihole</td>
+<td>Pi-Hole DNS Server</td>
+<td>Ubuntu 24.04 LTS</td>
+<td><code>192.168.1.30</code></td>
+<td>-</td>
+<td>DNS Resolver Server</td>
+</tr>
+<tr>
+<td>gitlab-devops</td>
+<td>GitLab EE</td>
+<td>Ubuntu 24.04 LTS</td>
+<td><code>192.168.1.35</code></td>
+<td>-</td>
+<td>GitLab EE instance</td>
+</tr>
+<tr>
+<td>gitlab-runner</td>
+<td>GitLab Runner, Docker CE</td>
+<td>Ubuntu 24.04 LTS</td>
+<td><code>192.168.1.40</code></td>
+<td>-</td>
+<td>GitLab Runner instance</td>
+</tr>
+</tbody>
+</table>
