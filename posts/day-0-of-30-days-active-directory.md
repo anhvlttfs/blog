@@ -1,7 +1,7 @@
 ---
 title: Setting up a new Home Lab - Day 0
 date: 2025-11-01
-permalink: /homelab-setup/day-1
+permalink: /homelab-setup/day-0
 ---
 
 # Day 1
