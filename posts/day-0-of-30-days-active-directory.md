@@ -4,7 +4,7 @@ date: 2025-11-01
 permalink: /homelab-setup/day-0
 ---
 
-# Day 1
+# Day 0
 
 This is the day zero of **TheFlightSims Challenge** - A 14-day challenge to set up a full-stack enterprise network at home, with Microsoft Active Directory, DevOps, and so on.
 
