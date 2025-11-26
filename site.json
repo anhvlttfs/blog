@@ -9,6 +9,9 @@
     "github": "anhvlttfs",
     "medium": "anhvlttfs"
   },
+  "newsletter": {
+    "showTwitterBanner": false
+  },
   "seo": {
     "title": "VLTA's Blog",
     "description": "Thoughts, stories and ideas",
