@@ -7,5 +7,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Delete remote branch
+        run: git push origin --delete <branch-name-to-delete>
+
       - name: Deploy
         uses: kamranahmedse/github-pages-blog-action@v0.0.10
+        with:
+          branch: gh-pages # Optional branch for GitHub Pages
