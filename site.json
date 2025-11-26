@@ -1,29 +1,25 @@
 {
-  "title": "Kamran Ahmed",
-  "subtitle": "Lead engineer at tradeling — tech guy with an entrepreneurial spirit and knack for getting things done",
+  "title": "VLTA's Blog",
+  "subtitle": "Thoughts, stories and ideas.",
   "owner": {
-    "name": "Kamran Ahmed",
-    "email": "kamranahmed.se@gmail.com"
+    "name": "Vo Luu Tuong Anh",
+    "email": "anhvlt.tfs@outlook.com"
   },
   "social": {
-    "github": "kamranahmedse",
-    "medium": "kamranahmedse",
-    "twitter": "kamranahmedse"
-  },
-  "newsletter": {
-    "showTwitterBanner": true,
-    "currentCount": "2,000",
-    "revueUsername": "roadmapsh"
+    "github": "anhvlttfs",
+    "medium": "anhvlttfs",
+    "twitter": "anhvlttfs"
   },
   "seo": {
-    "title": "Kamran Ahmed",
-    "description": "Blog of a Software Engineer",
-    "author": "Kamran Ahmed",
+    "title": "VLTA's Blog",
+    "description": "Thoughts, stories and ideas",
+    "author": "Vo Luu Tuong Anh",
     "keywords": [
       "blog",
       "developer blog",
-      "engineering blog"
+      "engineering blog",
+      "personal blog"
     ]
   },
-  "cname": "kamranahmed.info"
+  "cname": "blog.anhvlt.io.vn"
 }
