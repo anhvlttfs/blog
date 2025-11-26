@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Setting up a new Home Lab - Day 0</title>
+    <meta name="description" content="Thoughts, stories and ideas"/>
+    <meta name="keywords" content="blog,developer blog,engineering blog,personal blog"/>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Alegreya:400,400i|Lato:400,400i,700,900|Roboto+Mono:400,300">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/shades-of-purple.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="/css/normalize.css"/>
+    <link rel="stylesheet" href="/css/theme.css"/>
+</head>
+<body>
+<nav class="nav">
+    <div class="nav__left">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+    </div>
+    <div class="nav__right">
+        <a target="_blank" href="https://github.com/anhvlttfs" class="link-github">GitHub</a>
+        <a target="_blank" href="https://twitter.com/" class="link-twitter">Twitter</a>
+        <a href="mailto:anhvlt.tfs@outlook.com" class="link-email">Email</a>
+    </div>
+</nav>
+
+<article class="mar-b-7">
+    <header class="text-center">
+        <time class="mar-b-6" datetime="Sat, November 01, 2025">Sat, November 01, 2025</time>
+        <h1 class="mar-b-7">Setting up a new Home Lab - Day 0</h1>
+    </header>
+    <h1 id="day0">Day 0</h1>
+<p>This is the day zero of <strong>TheFlightSims Challenge</strong> - A 14-day challenge to set up a full-stack enterprise network at home, with Microsoft Active Directory, DevOps, and so on.</p>
+<h2 id="whatamihaving">What am I having?</h2>
+<p>To be honest, I only have</p>
+<ul>
+<li><a href="https://www.raspberrypi.com/products/raspberry-pi-5/">A Raspberry Pi 5</a> (8GB of RAM, 256GB of SSD, and 64GB of SD Card)</li>
+<li>A <a href="https://www.dell.com/support/product-details/en-vn/product/optiplex-7050-desktop/drivers">Dell OptiPlex 7050</a> (16GB of RAM, 238GB of SSD, and 298GB of HDD)</li>
+</ul>
+<p>Additionally, I also have the following equipment:</p>
+<ul>
+<li>Two safety sockets (3x sockets and 8x sockets) - as extension and for electronic safety</li>
+<li>A Wifi router (<a href="https://www.tp-link.com/ae/support/download/tl-wr820n/">TP-Link WR820N</a>) - as a network router and wireless modem</li>
+<li>A non-configurable switch (TP-Link) - for network physical segmentation</li>
+<li>2 external cooling fans (one for my Raspberry Pi, another to make the air cycle better for OptiPlex 7050)</li>
+</ul>
+<h2 id="hostingmethod">Hosting method</h2>
+<p>Firstly, two servers may be good enough for a local home network. However, as I want to make sure it is also a replication of standard networking in most enterprises, I think it is better to either:</p>
+<ul>
+<li>Buy new devices, sockets, and invest in a new cooling system; or…</li>
+<li>Force both servers to run a bare metal hypervisor</li>
+</ul>
+<p>And, as you expected, I chose the second option.</p>
+<p>Why? Because:</p>
+<ol>
+<li>It is cheaper.</li>
+<li>Manageability. Instead of managing each physical server with different roles, services, and applications individually, we can manage all servers as VMs on a single physical hypervisor host.</li>
+<li>Scalability. Running a hypervisor means your servers are virtual machines (VMs) that can scale on demand.</li>
+</ol>
+<h2 id="planninghypervisorhostandvms">Planning Hypervisor host and VMs</h2>
+<h3 id="planningonservicesandwheretohost">Planning on services and where to host</h3>
+<p>Since all servers are running bare metal hypervisors, I decided to run those servers with hypervisor software.</p>
+<ul>
+<li>Raspberry Pi 5 will run <a href="https://canonical.com/lxd">LXD</a> as the management layer, running on top of Ubuntu Server 24.04 LTS.</li>
+<li>Dell OptiPlex 7050 will run <a href="https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-in-windows-server-2022">Windows Server 2022</a> with the <a href="https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/">Hyper-V</a> role enabled. It will host Windows Server VMs, since Active Directory is the core service of my home network, and it runs best on Windows Server VMs hosted on Hyper-V. <em>Note that the Windows Server edition must be Datacenter, because the <a href="https://blog.anhvlt.io.vn/homelab-setup/docs/Core-based_licensing_guidance.pdf">Standard Edition only supports up to 2 VMs of Windows Server instance running</a>.</em></li>
+</ul>
+<p>Moreover, some roles and services must be installed for manageability, security, or backup.</p>
+<ul>
+<li>File Server with SMB enabled for backup over the network. <strong>On Windows Server</strong>, it also needs data deduplication, enhanced storage, storage migration services, and storage replicas. <strong>On Ubuntu Server</strong>, it is configured with <a href="https://www.samba.org/">Samba</a>.</li>
+<li>Shell service: <strong>On Windows Server</strong>, it is Windows Remote Management (WinRM) over PowerShell and Windows Management Instrumentation (WMI). However, I prefer using WinRM with PowerShell over WMI, as WMI is designed for complex scripting with .NET Framework 4.8. <strong>On Ubuntu Server</strong>, it is Secure Shell (<code>sshd</code>). It may need to disable access using a password and only authenticate with a certificate.</li>
+<li>Manage via web interface: <strong>On Windows Server</strong>, it is <a href="https://www.microsoft.com/en-us/windows-server/windows-admin-center">Windows Admin Center</a>. <strong>On Ubuntu Server</strong>, it is <a href="https://cockpit-project.org/">Cockpit</a>.</li>
+<li>Additionally, Windows Server will have to install those features for further system investigation and backup: Microsoft Defender Antivirus, Setup and Boot Event Collection, System Data Archiver, System Insights, and Windows Server Backup.</li>
+</ul>
+<h3 id="rolesandservicesrunningonvms">Roles and Services running on VMs</h3>
+<p>For servers as VMs running on Windows Server Hyper-V:</p>
+<ol>
+<li>Two domain controllers: Active Directory Domain Services (AD DS), Active Directory Certificate Services (AD CS), and DNS Server.</li>
+<li>Authentication server: Active Directory Federation Services (AD FS), Network Policy and Access Services (NPS), and all RSAT features.</li>
+<li>Database server: <a href="https://www.microsoft.com/en-us/sql-server/sql-server-2022">Microsoft SQL Server 2022</a>.</li>
+<li>Web Server: <a href="https://learn.microsoft.com/en-us/iis/get-started/introduction-to-iis/introduction-to-iis-architecture">Web Server (IIS)</a>.</li>
+</ol>
+<p>For the server as VMs running on LXD:</p>
+<ol>
+<li>The exit relay DNS server: <a href="https://pi-hole.net/">Pi-Hole Ad-blocker</a>.</li>
+<li>DevOps server: <a href="https://about.gitlab.com/enterprise/">GitLab EE</a>.</li>
+<li>DevOps Runner: <a href="https://docs.gitlab.com/runner/">GitLab Runner</a>, <a href="https://docs.docker.com/engine/install/">Docker CE</a>.</li>
+</ol>
+<h2 id="networking">Networking</h2>
+<h3 id="localdomainnames">Local Domain Names</h3>
+<p>Since this is only for the home network, the TLDs of the domain should ideally not be published or used publicly to prevent conflicts with the wider Internet. For example, avoid using <code>.com</code> or <code>.net</code>. Also, avoid using the <code>.local</code> domain, as it causes mDNS issues.</p>
+<p>As the best practice, look for <a href="https://www.iana.org/domains/root/db">registered TLDs on IANA</a> to prevent conflicts for a local domain name.</p>
+<p>In this case, I will use the domain <code>workshop.neko</code>. Alternatively, <code>web.neko</code> is used for web deployments. (eg. IIS host or GitLab Pages).</p>
+<h3 id="privateipv4addressmap">Private IPv4 address map</h3>
+<p>I expect under 100 clients (not servers!) will join into my network, I will use the <code>192.168.1.0/24</code> - which has in total of 254 IP addresses.</p>
+<p>I segmented it into parts, as you can see in the table below</p>
+<table>
+    <thead>
+        <tr>
+            <th>Address Range</th>
+            <th>Max devices</th>
+            <th>Purposes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>192.168.1.1</code> - <code>192.168.1.4</code></td>
+            <td>4</td>
+            <td>Routers and Essential Networking Devices (Switches, Load Balancing)</td>
+        </tr>
+        <tr>
+            <td><code>192.168.1.5</code> - <code>192.168.1.9</code></td>
+            <td>5</td>
+            <td>Hypervisor server range</td>
+        </tr>
+        <tr>
+            <td><code>192.168.1.10</code> - <code>192.168.1.29</code></td>
+            <td>20</td>
+            <td><strong>HV01</strong> VMs range</td>
+        </tr>
+        <tr>
+            <td><code>192.168.1.30</code> - <code>192.168.1.49</code></td>
+            <td>20</td>
+            <td><strong>HV02</strong> VMs range</td>
+        </tr>
+        <tr>
+            <td><code>192.168.1.50</code> - <code>192.168.1.109</code></td>
+            <td>60</td>
+            <td>Reserved for VMs in different hypervisor hosts</td>
+        </tr>
+        <tr>
+            <td><code>192.168.1.110</code> - <code>192.168.1.254</code></td>
+            <td>145</td>
+            <td>Client range</td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="actualdevicenamingipaddressassignment">Actual device naming &amp; IP address assignment</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Server Name</th>
+            <th>Installed Roles based on Software</th>
+            <th>Operating System</th>
+            <th>IPv4 assignment</th>
+            <th>IPv6 assignment (postfix)</th>
+            <th>Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>-</td>
+            <td>Router</td>
+            <td>-</td>
+            <td><code>192.168.1.1</code></td>
+            <td>-</td>
+            <td>Router (TP-Link)</td>
+        </tr>
+        <tr>
+            <td>HV01</td>
+            <td>Hyper-V</td>
+            <td>Windows Server 2022</td>
+            <td><code>192.168.1.5</code></td>
+            <td>-</td>
+            <td>Hypervisor host</td>
+        </tr>
+        <tr>
+            <td>HV02</td>
+            <td>LXD</td>
+            <td>Ubuntu 24.04 LTS</td>
+            <td><code>192.168.1.6</code></td>
+            <td>-</td>
+            <td>Hypervisor host</td>
+        </tr>
+        <tr>
+            <td>DC01</td>
+            <td>AD DS, AD CS, DNS Server</td>
+            <td>Windows Server 2022</td>
+            <td><code>192.168.1.10</code></td>
+            <td><code>::fff8</code></td>
+            <td>Primary Domain Controller</td>
+        </tr>
+        <tr>
+            <td>DC02</td>
+            <td>AD DS, AD CS, DNS Server</td>
+            <td>Windows Server 2022</td>
+            <td><code>192.168.1.11</code></td>
+            <td><code>::fff9</code></td>
+            <td>Secondary Domain Controller</td>
+        </tr>
+        <tr>
+            <td>AUTH</td>
+            <td>AD FS, NPS, RSATs</td>
+            <td>Windows Server 2022</td>
+            <td><code>192.168.1.20</code></td>
+            <td>-</td>
+            <td>Federation Services and RADIUS</td>
+        </tr>
+        <tr>
+            <td>WEB</td>
+            <td>Web Server (IIS, without .NET 3.5), Windows Container</td>
+            <td>Windows Server 2022</td>
+            <td><code>192.168.1.21</code></td>
+            <td>-</td>
+            <td>Web Services, with GitLab Runner support</td>
+        </tr>
+        <tr>
+            <td>DB</td>
+            <td>SQL Server 2022</td>
+            <td>Windows Server 2022</td>
+            <td><code>192.168.1.22</code></td>
+            <td>-</td>
+            <td>Database Server</td>
+        </tr>
+        <tr>
+            <td>pihole</td>
+            <td>Pi-Hole DNS Server</td>
+            <td>Ubuntu 24.04 LTS</td>
+            <td><code>192.168.1.30</code></td>
+            <td>-</td>
+            <td>DNS Resolver Server</td>
+        </tr>
+        <tr>
+            <td>gitlab-devops</td>
+            <td>GitLab EE</td>
+            <td>Ubuntu 24.04 LTS</td>
+            <td><code>192.168.1.35</code></td>
+            <td>-</td>
+            <td>GitLab EE instance</td>
+        </tr>
+        <tr>
+            <td>gitlab-runner</td>
+            <td>GitLab Runner, Docker CE</td>
+            <td>Ubuntu 24.04 LTS</td>
+            <td><code>192.168.1.40</code></td>
+            <td>-</td>
+            <td>GitLab Runner instance</td>
+        </tr>
+    </tbody>
+</table>
+<h2 id="hypervisordiskpartitioninganddiskbasedcomputingforbackupplans">Hypervisor disk partitioning and disk-based computing for backup plans</h2>
+<h3 id="onthehv01runningwindowsserver2022">On the HV01 (running Windows Server 2022)</h3>
+<p>HV01 on Dell OptiPlex 7050 has two disks, both in good condition.</p>
+<p>Since the system must also have a backup solution, I decided to do the following partition scheme:</p>
+<ul>
+<li>On the SSD: Since the SSD has fast I/O, it will become the primary disk, where it holds both the host operating system and all VM contents (incl. disks, configurations, and snapshots).</li>
+<li>On the HDD: It is much slower, but more reliable, so it becomes the secondary disk for holding backup contents, incl. backup of host machine, backup of VMs (VMs will send backups via SMB to the host).</li>
+</ul>
+<h3 id="onthehv02runningubuntuserver2404lts">On the HV02 (running Ubuntu Server 24.04 LTS)</h3>
+<p>HV02 on Raspberry Pi 5 has 2 disks, both in good condition.</p>
+<ul>
+<li>On SSD: Since it stores both the backup content sent from HV01 over the network, it should be at least the size of the OptiPlex 7050 backup partition, and the rest for the OS and all VMs.</li>
+<li>On the SD card: It is much slower than the SSD, so it will become a backup solution for the operating system on Raspberry Pi 5.</li>
+</ul>
+<h3 id="calculationfordisksincludingforbackupsolution">Calculation for disks, including for backup solution</h3>
+<p>From the above needs, I sum up into a quick calculation</p>
+<p>
+    <style> 
+        table, th, tr, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+    </style>
+    <table>
+        <tr>
+            <th>Host</th>
+            <th>Disk Type</th>
+            <th>Disk No.</th>
+            <th>Partition</th>
+            <th>Size</th>
+            <th>Purpose</th>
+            <th>Note</th>
+        </tr>
+        <tr>
+            <td rowspan="6">HV01</td>
+            <td rowspan="4">SSD</td>
+            <td rowspan="4">0</td>
+            <td>0</td>
+            <td>100 MB</td>
+            <td>Boot Partition (UEFI)</td>
+            <td>This partition is automatically created through WinPE</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>30 GB</td>
+            <td>Host Operating System (Windows Server 2022)</td>
+            <td>This partition is automatically created through WinPE</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>737 MB</td>
+            <td>Windows Recovery Environment</td>
+            <td>This partition is automatically created through WinPE</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>208 GB</td>
+            <td>Virtual machine contents</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td rowspan="2">HDD</td>
+            <td rowspan="2">1</td>
+            <td>0</td>
+            <td>231 GB</td>
+            <td>Back up partition</td>
+            <td>May need Data Deduplication configured to reduce size</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>67 GB</td>
+            <td>Local Software Repository</td>
+            <td>Store software such as Windows installation, SQL Server installation, and so on, for fast deployment</td>
+        </tr>
+        <tr>
+            <td rowspan="5">HV02</td>
+            <td rowspan="4">SSD</td>
+            <td rowspan="4">0</td>
+            <td>0</td>
+            <td>530 MB</td>
+            <td>Raspberry Pi boot partition</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>51 GB</td>
+            <td>Host Operating System (Ubuntu 24.04 LTS)</td>
+            <td>This partition is locked at 4GB at the time of creation using Raspberry Pi Imager, but you can mount it on Ubuntu Desktop to resize the partition.</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>8 GB</td>
+            <td>Swap Partition</td>
+            <td>Useful when Ubuntu needs a place to free up less used memory space for essential applications</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>190 GB</td>
+            <td>Backup partition over SMB</td>
+            <td>This partition is <strong>for backup service via SMB from Windows Server</strong>. Host Ubuntu should not backup into this.</td>
+        </tr>
+        <tr>
+            <td>SD Card</td>
+            <td>1</td>
+            <td>0</td>
+            <td>64 GB</td>
+            <td>Backup partition for local host</td>
+            <td>This partition is <strong>for Ubuntu Server itself.</strong></td>
+        </td>
+    </table>
+</p>
+<h2 id="whatsnext">What's next?</h2>
+<p>Looking for Day 1? <a href="https://blog.anhvlt.io.vn/homelab-setup/day-1">Here you go! -></a></p>
+</article>
+
+
+
+<footer class="text-center mar-tb-6">
+    © 2025 Vo Luu Tuong Anh, unless otherwise stated.
+</footer>
+
+<script>hljs.highlightAll();</script>
+</body>
+</html>
+
