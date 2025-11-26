@@ -50,21 +50,10 @@ Since all servers are running bare metal hypervisors, I decided to run those ser
 
 Moreover, some roles and services must be installed for manageability, security, or backup.
 
-- File Server with SMB enabled for backup over the network
-  - On Windows Server, it also needs data deduplication, enhanced storage, storage migration services, and storage replicas.
-  - On Ubuntu Server, it is configured with Samba.
-- Shell service
-  - On Windows Server, it is Windows Remote Management (WinRM) over PowerShell and Windows Management Instrumentation (WMI). However, I prefer using WinRM with PowerShell over WMI, since WMI is better for complex scripting, with built-in .NET Framework 4.8
-  - On Ubuntu Server, it is Secure Shell (`sshd`). It may need to disable access using a password and only authenticate with a certificate.
-- Manage via web interface
-  - On Windows Server: Windows Admin Center
-  - On Ubuntu Server: Cockpit
-- Additionally, Windows Server will have to install those features for further system investigation and backup:
-  - Microsoft Defender Antivirus
-  - Setup and Boot Event Collection
-  - System Data Archiver
-  - System Insights
-  - Windows Server Backup
+- File Server with SMB enabled for backup over the network. **On Windows Server**, it also needs data deduplication, enhanced storage, storage migration services, and storage replicas. **On Ubuntu Server**, it is configured with Samba.
+- Shell service: **On Windows Server**, it is Windows Remote Management (WinRM) over PowerShell and Windows Management Instrumentation (WMI). However, I prefer using WinRM with PowerShell over WMI, since WMI is better for complex scripting, with built-in .NET Framework 4.8. **On Ubuntu Server**, it is Secure Shell (`sshd`). It may need to disable access using a password and only authenticate with a certificate.
+- Manage via web interface: **On Windows Server**, it is Windows Admin Center. **On Ubuntu Server**, it is Cockpit
+- Additionally, Windows Server will have to install those features for further system investigation and backup: Microsoft Defender Antivirus, Setup and Boot Event Collection, System Data Archiver, System Insights, and Windows Server Backup
 
 ### Roles and Services running on VMs
 
