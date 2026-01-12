@@ -2,8 +2,8 @@
 module.exports = {
   title: 'My Site',
   tagline: 'The tagline of my site',
-  url: 'https://blog.anhvlt.io.vn', // Replace it with your deployed Pages URL
-  baseUrl: '/', // When the unique domain is disabled, replace it with your project’s name.
+  url: 'https://blog.anhvlt.io.vn',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -11,7 +11,7 @@ module.exports = {
   projectName: 'docusaurus', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'Docusaurus on GitLab Pages',
+      title: "VLTA's Blog",
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
@@ -23,10 +23,14 @@ module.exports = {
           label: 'Docs',
           position: 'left',
         },
-        {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://gitlab.com/pages/docusaurus',
-          label: 'GitLab',
+          to: 'blog', 
+          label: 'Blog', 
+          position: 'left'
+        },
+        {
+          href: 'https://github.com/anhvlttfs',
+          label: 'My GitHub Profile',
           position: 'right',
         },
       ],
@@ -35,28 +39,31 @@ module.exports = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Contact me!',
           items: [
             {
-              label: 'Getting Started',
-              to: 'docs/',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'LinkedIn',
+              href: 'https://www.linkedin.com/in/anhvlttfs/',
             },
             {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              label: 'YouTube',
+              href: 'https://www.youtube.com/@anhvlttfs',
             },
             {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              label: 'Hugging Face',
+              href: 'https://huggingface.co/anhvlt-2k6',
+            },
+            {
+              label: 'Coursera',
+              href: 'https://www.coursera.org/learner/anhvlttfs',
+            },
+            {
+              label: 'Leetcode',
+              href: 'https://leetcode.com/u/anhvlttfs/',
+            },
+            {
+              label: 'Hacker Rank',
+              href: 'https://www.hackerrank.com/profile/anhvlttfs',
             },
           ],
         },
@@ -64,17 +71,17 @@ module.exports = {
           title: 'More',
           items: [
             {
-              label: 'Blog',
-              to: 'blog',
+              label: 'CASIO Calculator online',
+              href: 'https://classpad.anhvlt.io.vn/',
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/anhvlttfs',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Vo Luu Tuong Anh. Built with Docusaurus.`,
     },
   },
   presets: [
@@ -83,13 +90,11 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
           editUrl:
             'https://github.com/facebook/docusaurus/edit/master/website/',
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
           editUrl:
             'https://github.com/facebook/docusaurus/edit/master/website/blog/',
         },
