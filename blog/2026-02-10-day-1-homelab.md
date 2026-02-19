@@ -70,3 +70,28 @@ Another note for the Hyper-V host is turn on the Remote Desktop, with secure con
 ![Windows Server enable RDP](/homelab-setup-day-1/windows-server-enable-rdp.png)
 
 Once everything above is done, try to restart the Windows Server, installing drivers and get latest drivers for hardware, restart it again, and put into ready for installing new virtual machines on top of it.
+
+### Download & install new Windows hypervisor host on HV02
+
+For the LXD installation on HV02 (Raspberry Pi 5), it is required to install a Ubuntu server 24.04 (Noble) distro on top of that. To install Ubuntu Server 24.04, you can follow this instruction on [Ubuntu](https://ubuntu.com/download/raspberry-pi)
+
+After successfully installing the Ubuntu on Raspberry Pi, you should follow the Ubuntu Documentation, to finalize the installation, including
+
+- Run the packages updates
+
+    ```bash
+    sudo apt update && sudo apt full-upgrade -y
+    sudo snap refresh
+    ```
+
+- [Console security](https://ubuntu.com/server/docs/how-to/security/console-security/)
+- [AppArmor](https://ubuntu.com/server/docs/how-to/security/apparmor/)
+- [Firewall](https://ubuntu.com/server/docs/how-to/security/firewalls/). Personally, I recommend using `firewalld` instead of `ufw`
+- [OpenSSH Server](https://ubuntu.com/server/docs/how-to/security/openssh-server/)
+- [Root CA Certificate](https://ubuntu.com/server/docs/how-to/security/install-a-root-ca-certificate-in-the-trust-store/). It is very useful later, when you configure Active Directory Certificate Service with customized SSL/TLS certificate.
+
+> It is recommended to subscribe for free [Ubuntu Pro](https://ubuntu.com/pro). Ubuntu Pro gives you up to 5 machines on free plan, also Ubuntu Security Guide (`usg`) - a small but powerful tool that help you patch the server. For more information, see [more about `usg`](https://ubuntu.com/security/certifications/docs/usg)
+
+Once restarting the machine after hardening the server, you now can install [LXD from Snap](https://snapcraft.io/lxd).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wqEH_d8LC1k?si=x9Rf-u_vuILsTdFV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
