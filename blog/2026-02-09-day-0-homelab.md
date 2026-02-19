@@ -45,7 +45,7 @@ Why? Because:
 Since all servers are running bare metal hypervisors, I decided to run those servers with hypervisor software.
 
 - Raspberry Pi 5 will run [LXD](https://canonical.com/lxd) as the management layer, running on top of Ubuntu Server 24.04 LTS.
-- Dell OptiPlex 7050 will run [Windows Server 2022](https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-in-windows-server-2022) with the [Hyper-V](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/) role enabled. It will host Windows Server VMs, since Active Directory is the core service of my network, and it runs best on Windows Server VMs hosted on Hyper-V. *Note that the Windows Server edition must be Datacenter, because the Standard Edition only supports up to 2 VMs of Windows Server instance running.*
+- Dell OptiPlex 7050 will run [Windows Server 2022](https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-in-windows-server-2022) with the [Hyper-V](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/) role enabled. It will host Windows Server VMs, since Active Directory is the core service of my network, and it runs best on Windows Server VMs hosted on Hyper-V. *Note that the Windows Server edition must be Datacenter, [because the Standard Edition only supports up to 2 VMs of Windows Server instance running](/homelab-setup-day-0/Core-based_licensing_guidance.pdf).*
 
 Moreover, some roles and services must be installed for manageability, security, or backup.
 
