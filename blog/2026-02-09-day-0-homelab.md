@@ -22,7 +22,7 @@ Additionally, I also have the following equipment:
 - Two safety sockets (3x sockets and 8x sockets) - as an extension and for electronic safety
 - A [Cisco Linksys EA2700](https://www.smallnetbuilder.com/wireless/wireless-reviews/cisco-linksys-ea2700-gigabit-dual-band-wireless-n600-router-reviewed/) as a wireless access point
 - A [Cisco CBS110-8T-D-EU](https://www.cisco.com/c/en/us/products/collateral/switches/business-110-series-unmanaged-switches/datasheet-c78-744158.html) unmanaged network switch.
-- A small [LIVA Z MiniPC](https://www.ecs.com.tw/en/Product/Mini-PC/LIVA_Z/overview) as a small, dedicated router.
+- A small [LIVA Z MiniPC](https://www.ecs.com.tw/en/Product/Mini-PC/LIVA_Z/overview) as a small, dedicated router, running [OPNSense](https://opnsense.org/).
 
 ## Hosting method
 
