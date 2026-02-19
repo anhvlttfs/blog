@@ -1,6 +1,6 @@
 ---
 slug: homelab-setup-day-0
-title: (Day 0) [Setup your own home lab] Planning for the requirements
+title: (Setup your own home lab) Day 0 - Planning for the requirements
 author: Vo Luu Tuong Anh
 author_title: VLTA of @TheFlightSims
 author_url: https://github.com/anhvlttfs
