@@ -1,6 +1,6 @@
 ---
 slug: homelab-setup-day-1
-title: (Setup your own home lab) Day 1 - Planning for the requirements
+title: (Setup your own home lab) Day 1 - Set up new operating system on bare metal
 author: Vo Luu Tuong Anh
 author_title: VLTA of @TheFlightSims
 author_url: https://github.com/anhvlttfs
