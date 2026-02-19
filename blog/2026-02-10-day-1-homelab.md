@@ -48,7 +48,7 @@ You can configure additional advanced features, such as network monitoring, to q
 
 For the Windows Server installation, it is pretty much straight forward - you click the installation, select "Windows Server 2022 Datacenter Evaluation (Desktp Experience)", do the partitioning, and let the installer does the rest for you
 
-![Windows Server setup experience](/homelab-setup-day-1/opnsense-uplink-monitor.png)
+![Windows Server setup experience](/homelab-setup-day-1/windows-server-setup.png)
 
 Once the setup is complete, you will be rebooted into the Windows OOBE screen. Since the installation medium is *"Evaluation"*, you may need to convert into *Production*, by using this command
 
@@ -57,5 +57,16 @@ dism /online /Set-Edition:ServerDatacenter /ProductKey:<Your product key> /Accep
 ```
 
 In case you don't have a product key, but still want to escape the evaluation mode, you can try using the [KMS public key by Microsoft](https://learn.microsoft.com/en-us/windows-server/get-started/kms-client-activation-keys?tabs=windows102016%2Cwindows81%2Cserver2025%2Cversion1803#windows-server-ltsc)
+. Note that you may need to restart the server right after
 
+Another consideration is uninstalling optional features and apps, such as Microsoft Edge, Microsoft Paint, and Windows Hello. It is nice to know that Edge is considered as optional feature in Windows Server, so you can uninstall it in **Control Panel**, or in the **System Setting > App** and **System Setting > Optional Features**. A optional features installed should look like this
 
+![Windows Server Optional Features](/homelab-setup-day-1/windows-server-optional-features-list.png)
+
+After everything above are done, you can install **Hyper-V** roles onto the hypervisor host, and features such as **Network Virtualization**, **Windows Server Backup**, **System Data Archiver**, and **System Insights**
+
+Another note for the Hyper-V host is turn on the Remote Desktop, with secure connection, so you can remotely control it without always plug your monitor, keyboard, and mouse into it.
+
+![Windows Server enable RDP](/homelab-setup-day-1/windows-server-enable-rdp.png)
+
+Once everything above is done, try to restart the Windows Server, installing drivers and get latest drivers for hardware, restart it again, and put into ready for installing new virtual machines on top of it.
