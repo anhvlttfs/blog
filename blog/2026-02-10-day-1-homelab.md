@@ -43,3 +43,19 @@ After assigning the interface, you can try accessing the router via the web inte
 You can configure additional advanced features, such as network monitoring, to quickly troubleshoot issues in case of internet connection loss.
 
 ![OPNSense Uplink Monitoring](/homelab-setup-day-1/opnsense-uplink-monitor.png)
+
+### Download & install new Windows hypervisor host on HV01
+
+For the Windows Server installation, it is pretty much straight forward - you click the installation, select "Windows Server 2022 Datacenter Evaluation (Desktp Experience)", do the partitioning, and let the installer does the rest for you
+
+![Windows Server setup experience](/homelab-setup-day-1/opnsense-uplink-monitor.png)
+
+Once the setup is complete, you will be rebooted into the Windows OOBE screen. Since the installation medium is *"Evaluation"*, you may need to convert into *Production*, by using this command
+
+```cmd
+dism /online /Set-Edition:ServerDatacenter /ProductKey:<Your product key> /AcceptEula
+```
+
+In case you don't have a product key, but still want to escape the evaluation mode, you can try using the [KMS public key by Microsoft](https://learn.microsoft.com/en-us/windows-server/get-started/kms-client-activation-keys?tabs=windows102016%2Cwindows81%2Cserver2025%2Cversion1803#windows-server-ltsc)
+
+
