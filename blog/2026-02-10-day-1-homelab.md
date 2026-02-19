@@ -29,3 +29,17 @@ Installing OPNSense is pretty easy, just login as `installer` as logon and `opns
 Once done, you **MUST** set for the root password, so you can log into the OPNSense system, using your own credential, instead of the default password of OPNSense
 
 ![OPNSense set root password](/homelab-setup-day-1/opnsense-set-root.png)
+
+After restarting, OPNSense will launch. However, the interface is not yet assigned - OPNSense cannot distinguish between WAN and LAN interfaces. To configure this, in the main interface, select `1` to assign the interface.
+
+In my case, I set up the `re0` interface as the WAN and `re1` as the LAN. The WAN interface has the static IP address of my home network (`172.16.0.2/16`), while the LAN interface is assigned the first IP address in the local network (`192.168.1.1/24`).
+
+![OPNSense interface assignment](/homelab-setup-day-1/opnsense-interface-assignment.png)
+
+After assigning the interface, you can try accessing the router via the web interface, as management will be much easier, by connecting your laptop or desktop computer to a switch, and allowing the router to connect to the same switch. Note that the DHCP server may not be working, so you may also need to assign your client a static IP address.
+
+![OPNSense Web Interface](/homelab-setup-day-1/opnsense-web-interface.png)
+
+You can configure additional advanced features, such as network monitoring, to quickly troubleshoot issues in case of internet connection loss.
+
+![OPNSense Uplink Monitoring](/homelab-setup-day-1/opnsense-uplink-monitor.png)
