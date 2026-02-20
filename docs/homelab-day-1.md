@@ -1,5 +1,4 @@
 ---
-slug: homelab-day-1
 title: (Day 1) Setup your own Home Lab
 author: Vo Luu Tuong Anh
 author_title: VLTA of @TheFlightSims
