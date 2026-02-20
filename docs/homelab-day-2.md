@@ -117,3 +117,26 @@ if (-not ($isADDSInstalled) -or -not($isDNSInstalled)) {
 Write-Host "Promoting to AD DS FSMO"
 Install-ADDSForest -DomainName "$domainName" -InstallDNS
 ```
+
+Note that after promoting, it is required for the domain controller to be restarted.
+
+![Run Prequisites (DC01)](/homelab-setup-day-2/promote-dc01.png)
+
+### Join the secondary domain controller into the networks
+
+Now, for the secondary domain controller (DC02), do as same as the deployment with DC01 in the roles installation. However, there are things to consider
+
+- The secondary domain controller DNS entries should be as same IP address as the DC01 (points to `192.168.1.10`). The second entry can be public IP or loop to itself (points to `192.168.1.11`)
+- Promoting to the domain controller for secondary domain controller is **join into Active Directory**, not **promoting new FSMO roles**. That means, you have to verify if the domain services are running, and DNS server on DC01 can response it, by running this command on DC01
+
+    ```powershell
+    nslookup workshop.neko
+    ```
+
+    If the `nslookup` response with an IP address of DC01, the domain controller is running properly and you can join/promote the secondary domain controller.
+
+![Run Prequisities on DC02](/homelab-setup-day-2/run-prequisities-dc02.png)
+
+After verifing and installing all required roles and features, you can promote new domain controller into the current Active Directory instance, [using this Powershell script](/homelab-setup-day-2/Promote-ADSecondary.ps1)
+
+![Join DC02 into AD](/homelab-setup-day-2/join-dc02-into-ad.png)
