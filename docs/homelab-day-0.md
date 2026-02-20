@@ -12,6 +12,8 @@ This is the day zero of **TheFlightSims Challenge** - A 10-day challenge to set 
 
 # Planning for the new network
 
+## What am I having?
+
 To be honest, I only have
 
 - [A Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/) (8GB of RAM, 256GB of SSD, and 64GB of SD Card)
