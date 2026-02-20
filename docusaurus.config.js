@@ -7,8 +7,8 @@ module.exports = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'VLTA', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'anhvlttfs', // Usually your GitHub org/user name.
+  projectName: 'blog', // Usually your repo name.
   themeConfig: {
     navbar: {
       title: "VLTA's Blog",
