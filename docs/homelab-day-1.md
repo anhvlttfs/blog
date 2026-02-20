@@ -10,9 +10,9 @@ tags: [homelab, local-networking, active-directory]
 
 This is the day one of **TheFlightSims Challenge** - A 10-day challenge to set up a full-stack enterprise network at home, with Microsoft Active Directory, DevOps, and so on.
 
-## Set up new operating system on bare metal
+# Set up new operating system on bare metal
 
-### Download & install new OPNSense instance on router
+## Download & install new OPNSense instance on router
 
 You can check out for the system requirements on the [OPNSense system requirements](https://opnsense.org/get-started/)
 
@@ -44,7 +44,7 @@ You can configure additional advanced features, such as network monitoring, to q
 
 ![OPNSense Uplink Monitoring](/homelab-setup-day-1/opnsense-uplink-monitor.png)
 
-### Download & install new Windows hypervisor host on HV01
+## Download & install new Windows hypervisor host on HV01
 
 For the Windows Server installation, it is pretty much straight forward - you click the installation, select "Windows Server 2022 Datacenter Evaluation (Desktp Experience)", do the partitioning, and let the installer does the rest for you
 
@@ -71,7 +71,7 @@ Another note for the Hyper-V host is turn on the Remote Desktop, with secure con
 
 Once everything above is done, try to restart the Windows Server, installing drivers and get latest drivers for hardware, restart it again, and put into ready for installing new virtual machines on top of it.
 
-### Download & install new Windows hypervisor host on HV02
+## Download & install new Windows hypervisor host on HV02
 
 For the LXD installation on HV02 (Raspberry Pi 5), it is required to install a Ubuntu server 24.04 (Noble) distro on top of that. To install Ubuntu Server 24.04, you can follow this instruction on [Ubuntu](https://ubuntu.com/download/raspberry-pi)
 
