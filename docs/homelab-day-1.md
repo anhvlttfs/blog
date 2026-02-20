@@ -98,4 +98,4 @@ Don't forget to assign static IP address for your HV02
 
 Once restarting the machine after hardening the server, you now can install [LXD from Snap](https://snapcraft.io/lxd).
 
-[Watch the video on YouTube](https://www.youtube.com/embed/wqEH_d8LC1k?si=x9Rf-u_vuILsTdFV)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wqEH_d8LC1k?si=x9Rf-u_vuILsTdFV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
