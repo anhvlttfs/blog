@@ -2,10 +2,11 @@ module.exports = {
   docs: [
     {
       type: 'category',
-      label: 'Docusaurus Tutorial',
+      label: 'Setup your own Home Lab',
       items: [
-        'getting-started',
-      ],
-    },
+        'homelab-day-0',
+        'homelab-day-1'
+      ]
+    }
   ],
 };
