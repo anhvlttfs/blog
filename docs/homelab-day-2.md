@@ -20,17 +20,17 @@ The requirements for the setup is:
 - Roles installed: Active Directory Domain Services and DNS Server
 - IPv4 addresses: `192.168.1.10` for DC01 and `192.168.1.11` for DC02
 
+### Configure roles & services for domain controllers
+
+For the first deployment of the server in the network, I would recommend that the first DNS entry is the DNS of itself (**but not `127.0.0.1`**, I will explain later)
+
 ![Configure static IPv4 on DC01](/homelab-setup-day-2/static-ipv4-dc01.png)
 
-> I would recommend using a deployment template in case a massive deployment like deploying domain controllers for a network like this case. You can review [Domain Controller template here](/homelab-setup-day-2/DomainController_DeploymentConfigTemplate.xml)
->
-> You can automate the installation process by using Powershell command in Windows Server:
->
-> ```powershell
-> Install-WindowsFeature -ConfigurationFilePath ".\DomainController_DeploymentConfigTemplate.xml"
-> ```
+Another consideration is quit the [Evaluation mode and Updating the server](/docs/homelab-day-1/#download--install-new-windows-hypervisor-host-on-hv01) to the latest version (which explains why I set the secondary DNS entry of the DC01 is `1.1.1.1` - you can configure any public DNS server out there).
 
-After installing roles for the domain controllers, it is recommend to run a quick check before promoting computer to domain controller ([You can download the script in there or copy below](/homelab-setup-day-2/Run-Prequisites.ps1))
+### Run the prequisite checks
+
+Before performing any further step, it is recommend to run a quick check ([You can download the script in there or copy below](/homelab-setup-day-2/Run-Prequisites.ps1))
 
 ```powershell
 # Run network check
@@ -69,6 +69,16 @@ if ($isNetworkValidated -and $isWSActivated -and $isImageGood) {
     Write-Host "Your Windows instance should not be promoted to Domain Controller" -ForegroundColor Red
 }
 
+```
+
+### Installing & Promoting new domain controller
+
+I would recommend using a deployment template in case a massive deployment like deploying domain controllers for a network like this case. You can review [Domain Controller template here](/homelab-setup-day-2/DomainController_DeploymentConfigTemplate.xml)
+
+You can automate the installation process by using Powershell command in Windows Server:
+
+```powershell
+Install-WindowsFeature -ConfigurationFilePath ".\DomainController_DeploymentConfigTemplate.xml"
 ```
 
 ![Run Prequisites (DC01)](/homelab-setup-day-2/run-prequisites-dc01.png)
