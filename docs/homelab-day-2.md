@@ -20,6 +20,8 @@ The requirements for the setup is:
 - Roles installed: Active Directory Domain Services and DNS Server
 - IPv4 addresses: `192.168.1.10` for DC01 and `192.168.1.11` for DC02
 
+![Configure static IPv4 on DC01](/homelab-setup-day-2/static-ipv4-dc01.png)
+
 > I would recommend using a deployment template in case a massive deployment like deploying domain controllers for a network like this case. You can review [Domain Controller template here](/homelab-setup-day-2/DomainController_DeploymentConfigTemplate.xml)
 >
 > You can automate the installation process by using Powershell command in Windows Server:
@@ -28,7 +30,7 @@ The requirements for the setup is:
 > Install-WindowsFeature -ConfigurationFilePath ".\DomainController_DeploymentConfigTemplate.xml"
 > ```
 
-After installing roles for the domain controllers, it is recommend to run a quick check before promoting computer to domain controller
+After installing roles for the domain controllers, it is recommend to run a quick check before promoting computer to domain controller ([You can download the script in there or copy below](/homelab-setup-day-2/Run-Prequisites.ps1))
 
 ```powershell
 # Run network check
@@ -70,3 +72,38 @@ if ($isNetworkValidated -and $isWSActivated -and $isImageGood) {
 ```
 
 ![Run Prequisites (DC01)](/homelab-setup-day-2/run-prequisites-dc01.png)
+
+Once the check is completed and all requirements are passed, you can promote to Domain Controller ([Again, you can download the script here or copy below](/homelab-setup-day-2/Promote-ADForest.ps1), note that the script is only for the **first domain controller** in the network)
+
+```powershell
+$domainName = "workshop.neko" # You can change your domain
+
+# Check if the ADDS roles are installed
+$isADDSInstalled = $false
+$addsRoleStatus = Get-WindowsFeature -Name "AD-Domain-Services"
+if ($addsRoleStatus.InstallState -eq "Installed") {
+    Write-Host "AD DS Services are installed!"
+    $isADDSInstalled = $true
+} else {
+    Write-Host "AD DS Services are not installed!" -ForegroundColor Red
+}
+
+# Check if the DNS roles are installed
+$isDNSInstalled = $false
+$dnsRoleStatus = Get-WindowsFeature -Name "DNS"
+if ($dnsRoleStatus.InstallState -eq "Installed") {
+    Write-Host "DNS is installed!"
+    $isDNSInstalled = $true
+} else {
+    Write-Host "DNS is not installed!" -ForegroundColor Red
+}
+
+if (-not ($isADDSInstalled) -or -not($isDNSInstalled)) {
+    Write-Host "Unable to promote to domain controller. Please review in Install-ADRoles.ps1 for configuration" -ForegroundColor Red
+    exit 1
+}
+
+# Promote to AD DS FSMO
+Write-Host "Promoting to AD DS FSMO"
+Install-ADDSForest -DomainName "$domainName" -InstallDNS
+```

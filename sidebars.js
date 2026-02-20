@@ -12,7 +12,8 @@ module.exports = {
       label: 'Setup your own Home Lab',
       items: [
         'homelab-day-0',
-        'homelab-day-1'
+        'homelab-day-1',
+        'homelab-day-2'
       ],
     },
   ],
