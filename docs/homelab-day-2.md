@@ -10,7 +10,7 @@ tags: [homelab, local-networking, active-directory]
 
 This is the day two of **TheFlightSims Challenge** - A 10-day challenge to set up a full-stack enterprise network at home, with Microsoft Active Directory, DevOps, and so on.
 
-## Setup Active Directory Domain Service on domain controllers
+# Setup Active Directory Domain Service on domain controllers
 
 After completing the setup on HV01, I attempted to install Windows Server 2022 Datacenter Core with Domain Service roles.
 
@@ -20,7 +20,7 @@ The requirements for the setup is:
 - Roles installed: Active Directory Domain Services and DNS Server
 - IPv4 addresses: `192.168.1.10` for DC01 and `192.168.1.11` for DC02
 
-### Configure roles & services for domain controllers
+## Configure roles & services for domain controllers
 
 For the first deployment of the server in the network, I would recommend that the first DNS entry is the DNS of itself (**but not `127.0.0.1`**, I will explain later)
 
@@ -28,7 +28,7 @@ For the first deployment of the server in the network, I would recommend that th
 
 Another consideration is to quit [Evaluation mode and update the server](/docs/homelab-day-1/#download--install-new-windows-hypervisor-host-on-hv01) to the latest version (which explains why I set the secondary DNS entry of DC01 to `1.1.1.1` - you can configure any public DNS server out there).
 
-### Run the prequisite checks
+## Run the prequisite checks
 
 Before performing any further step, it is recommend to run a quick check ([You can download the script in there or copy below](/homelab-setup-day-2/Run-Prequisites.ps1))
 
@@ -71,7 +71,7 @@ if ($isNetworkValidated -and $isWSActivated -and $isImageGood) {
 
 ```
 
-### Installing & Promoting new domain controller
+## Installing & Promoting new domain controller
 
 I would recommend using a deployment template in case a massive deployment like deploying domain controllers for a network like this case. You can review [Domain Controller template here](/homelab-setup-day-2/DomainController_DeploymentConfigTemplate.xml)
 
@@ -122,7 +122,7 @@ Note that after promoting, it is required for the domain controller to be restar
 
 ![Run Prequisites (DC01)](/homelab-setup-day-2/promote-dc01.png)
 
-### Join the secondary domain controller into the networks
+## Join the secondary domain controller into the networks
 
 Now, for the secondary domain controller (DC02), do as same as the deployment with DC01 in the roles installation. However, there are things to consider
 
@@ -190,9 +190,9 @@ Install-ADDSDomainController @HashArguments
 
 ![Join DC02 into AD](/homelab-setup-day-2/join-dc02-into-ad.png)
 
-### Post Active Directory Domain Controller promotion
+## Post Active Directory Domain Controller promotion
 
-#### Join clients into Active Directory & installing RSAT
+### Join clients into Active Directory & installing RSAT
 
 A quick and easiest way to verify your Active Directory instance is join a Windows client (Windows 10 or 11). Depends on your operating system, [the method may different, so you can read the documentation here](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/join-computer-to-domain?tabs=cmd&pivots=windows-client-11).
 
@@ -205,3 +205,29 @@ You can download RSAT from MSDN, [Download Center](https://www.microsoft.com/en-
 After downloading, you can use Windows Update Standalone Installer to install RSAT.
 
 ![RSAT installation on client](/homelab-setup-day-2/install-rsat.png)
+
+### Secure your Active Directory with Security Baselines (by Microsoft)
+
+As Microsoft claims:
+
+> A security baseline is a group of Microsoft-recommended configuration settings that explains their security implication. These settings are based on feedback from Microsoft security engineering teams, product groups, partners, and customers.
+
+Since we are all using Windows Server 2022, it is easy to deploy the [Security baselines for Windows Server 2022 from Microsoft Download Center](https://www.microsoft.com/en-us/download/details.aspx?id=55319).
+
+![Security Baselines for Windows Server 2022](/homelab-setup-day-2/security-baselines-download.png)
+
+From the client computer, log into the **administrator account of the Active Directory**, not local administrator, to access the RSAT Group Policy Management (`gpmc.msc`).
+
+![Importing Security Baselines](/homelab-setup-day-2/import-security-baselines.png)
+
+> Note that you may need to configure a `Server` organization unit in the Active Directory for the Servers, seperated from Domain Controllers and Clients
+>
+> ![Creating OU for Servers](/homelab-setup-day-2/creating-ou-for-servers.png)
+
+After importing policies, don't forget to apply those changes.
+
+![Apply and Link Security Baselines](/homelab-setup-day-2/apply-and-link-gpmc.png)
+
+... force apply to all current domain controllers
+
+![Force Update on Domain Controllers](/homelab-setup-day-2/force-update-dcs.png)
