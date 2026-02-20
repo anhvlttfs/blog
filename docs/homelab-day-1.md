@@ -90,8 +90,6 @@ After successfully installing the Ubuntu on Raspberry Pi, you should follow the 
 - [OpenSSH Server](https://ubuntu.com/server/docs/how-to/security/openssh-server/)
 - [Root CA Certificate](https://ubuntu.com/server/docs/how-to/security/install-a-root-ca-certificate-in-the-trust-store/). It is very useful later, when you configure Active Directory Certificate Service with customized SSL/TLS certificate.
 
-![LXD setup](/homelab-setup-day-1/lxd-setup.png)
-
 > It is recommended to subscribe for free [Ubuntu Pro](https://ubuntu.com/pro). Ubuntu Pro gives you up to 5 machines on free plan, also Ubuntu Security Guide (`usg`) - a small but powerful tool that help you patch the server. For more information, see [more about `usg`](https://ubuntu.com/security/certifications/docs/usg)
 
 ![Ubuntu Security Guide](/homelab-setup-day-1/usg-list.png)
@@ -100,8 +98,4 @@ Don't forget to assign static IP address for your HV02
 
 Once restarting the machine after hardening the server, you now can install [LXD from Snap](https://snapcraft.io/lxd).
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/wqEH_d8LC1k?si=x9Rf-u_vuILsTdFV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-Another consideration is installing Cockpit for Web Management onto HV02. With cockpit, you can easily manage firewall (`firewalld` only, that's why I recommend `firewalld` over `ufw`), configure disks, view updates, and so on.
-
-![Cockpit Web Management](/homelab-setup-day-1/cockpit-on-hv02.png)
+[Watch the video on YouTube](https://www.youtube.com/embed/wqEH_d8LC1k?si=x9Rf-u_vuILsTdFV)
