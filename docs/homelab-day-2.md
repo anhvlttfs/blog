@@ -12,7 +12,7 @@ This is the day two of **TheFlightSims Challenge** - A 10-day challenge to set u
 
 ## Setup Active Directory Domain Service on domain controllers
 
-After completing setup on HV01, I tried to install Windows Server 2022 Datacenter Core, with Domain Service roles.
+After completing the setup on HV01, I attempted to install Windows Server 2022 Datacenter Core with Domain Service roles.
 
 The requirements for the setup is:
 
@@ -26,7 +26,7 @@ For the first deployment of the server in the network, I would recommend that th
 
 ![Configure static IPv4 on DC01](/homelab-setup-day-2/static-ipv4-dc01.png)
 
-Another consideration is quit the [Evaluation mode and Updating the server](/docs/homelab-day-1/#download--install-new-windows-hypervisor-host-on-hv01) to the latest version (which explains why I set the secondary DNS entry of the DC01 is `1.1.1.1` - you can configure any public DNS server out there).
+Another consideration is to quit [Evaluation mode and update the server](/docs/homelab-day-1/#download--install-new-windows-hypervisor-host-on-hv01) to the latest version (which explains why I set the secondary DNS entry of DC01 to `1.1.1.1` - you can configure any public DNS server out there).
 
 ### Run the prequisite checks
 
