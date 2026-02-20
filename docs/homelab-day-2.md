@@ -189,3 +189,19 @@ Install-ADDSDomainController @HashArguments
 ```
 
 ![Join DC02 into AD](/homelab-setup-day-2/join-dc02-into-ad.png)
+
+### Post Active Directory Domain Controller promotion
+
+#### Join clients into Active Directory & installing RSAT
+
+A quick and easiest way to verify your Active Directory instance is join a Windows client (Windows 10 or 11). Depends on your operating system, [the method may different, so you can read the documentation here](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/join-computer-to-domain?tabs=cmd&pivots=windows-client-11).
+
+Another consideration is after promoting, the Active Directory Domain Services and DNS may not working as expected. That's when the RSAT on client does its job.
+
+You can download RSAT from MSDN, [Download Center](https://www.microsoft.com/en-us/download/details.aspx?id=45520), or on Visual Studio Subscription.
+
+![RSAT Download page](/homelab-setup-day-2/rsat-download.png)
+
+After downloading, you can use Windows Update Standalone Installer to install RSAT.
+
+![RSAT installation on client](/homelab-setup-day-2/install-rsat.png)
