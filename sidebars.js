@@ -13,7 +13,8 @@ module.exports = {
       items: [
         'homelab-day-0',
         'homelab-day-1',
-        'homelab-day-2'
+        'homelab-day-2',
+        'homelab-day-3'
       ],
     },
   ],
