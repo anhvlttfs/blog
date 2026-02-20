@@ -10,7 +10,7 @@ tags: [homelab, local-networking, active-directory]
 
 This is the day zero of **TheFlightSims Challenge** - A 10-day challenge to set up a full-stack enterprise network at home, with Microsoft Active Directory, DevOps, and so on.
 
-## What am I having?
+# Planning for the new network
 
 To be honest, I only have
 
