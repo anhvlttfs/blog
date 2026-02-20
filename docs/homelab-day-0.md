@@ -1,6 +1,6 @@
 ---
 slug: homelab-day-0
-title: (Day 0) Setup your own Home Lab
+title: (Day 0) Planning for the new network
 author: Vo Luu Tuong Anh
 author_title: VLTA of @TheFlightSims
 author_url: https://github.com/anhvlttfs

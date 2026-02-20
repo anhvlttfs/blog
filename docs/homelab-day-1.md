@@ -1,6 +1,6 @@
 ---
 slug: homelab-day-1
-title: (Day 1) Setup your own Home Lab
+title: (Day 1) Installing softwares on primary devices
 author: Vo Luu Tuong Anh
 author_title: VLTA of @TheFlightSims
 author_url: https://github.com/anhvlttfs
