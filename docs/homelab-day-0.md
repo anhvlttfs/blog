@@ -1,102 +1,101 @@
 ---
+slug: omelab-day-0
 title: (Day 0) Setup your own Home Lab
-slug: /day-0
+author: Vo Luu Tuong Anh
+author_title: VLTA of @TheFlightSims
+author_url: https://github.com/anhvlttfs
+author_image_url: https://avatars.githubusercontent.com/u/176574466?v=4
+tags: [homelab, local-networking, active-directory]
 ---
 
-This is the day one of **TheFlightSims Challenge** - A 10-day challenge to set up a full-stack enterprise network at home, with Microsoft Active Directory, DevOps, and so on.
+This is the day zero of **TheFlightSims Challenge** - A 10-day challenge to set up a full-stack enterprise network at home, with Microsoft Active Directory, DevOps, and so on.
 
-## Set up new operating system on bare metal
+## What am I having?
 
-### Download & install new OPNSense instance on router
+To be honest, I only have
 
-You can check out for the system requirements on the [OPNSense system requirements](https://opnsense.org/get-started/)
+- [A Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/) (8GB of RAM, 256GB of SSD, and 64GB of SD Card)
+- A [Dell OptiPlex 7050](https://www.dell.com/support/product-details/en-vn/product/optiplex-7050-desktop/drivers) (16GB of RAM, 238GB of SSD, and 238GB of HDD)
 
-![OPNSense Requirements](/homelab-setup-day-1/opnsense-system-reqs.png)
+Additionally, I also have the following equipment:
 
-From the official page, you can download new instance of OPNSense.
+- Two safety sockets (3x sockets and 8x sockets) - as an extension and for electronic safety
+- A [Cisco Linksys EA2700](https://www.smallnetbuilder.com/wireless/wireless-reviews/cisco-linksys-ea2700-gigabit-dual-band-wireless-n600-router-reviewed/) as a wireless access point
+- A [Cisco CBS110-8T-D-EU](https://www.cisco.com/c/en/us/products/collateral/switches/business-110-series-unmanaged-switches/datasheet-c78-744158.html) unmanaged network switch.
+- A small [LIVA Z MiniPC](https://www.ecs.com.tw/en/Product/Mini-PC/LIVA_Z/overview) as a small, dedicated router, running [OPNSense](https://opnsense.org/).
 
-![OPNSense download page](/homelab-setup-day-1/opnsense-dvd-download.png)
+## Hosting method
 
-I recommend using a VGA image (if your router doesn't support a serial interface). You can connect the monitor to the router via the HDMI port and let it output the image for you.
+Firstly, two servers may be good enough for a local home network. However, as I want to make sure it is also a replication of standard networking in most enterprises, I think it is better to either:
 
-Installing OPNSense is pretty easy, just login as `installer` as logon and `opnsense` as password, setup the keyboard layout, and let the installer does the rest for you, from disk partitioning, to unpacking packages.
+- Buy new devices, sockets, and invest in a new cooling system; or...
+- Force both servers to run a bare metal hypervisor
 
-Once done, you **MUST** set for the root password, so you can log into the OPNSense system, using your own credential, instead of the default password of OPNSense
+And, as you expected, I chose the second option.
 
-![OPNSense set root password](/homelab-setup-day-1/opnsense-set-root.png)
+Why? Because:
 
-After restarting, OPNSense will launch. However, the interface is not yet assigned - OPNSense cannot distinguish between WAN and LAN interfaces. To configure this, in the main interface, select `1` to assign the interface.
+1. It is cheaper.
+2. Manageability. Instead of managing each physical server with different roles, services, and applications individually, we can manage all servers as VMs on a single physical hypervisor host.
+3. Scalability. Running a hypervisor means your servers are virtual machines (VMs) that can scale on demand.
 
-In my case, I set up the `re0` interface as the WAN and `re1` as the LAN. The WAN interface has the static IP address of my home network (`172.16.0.2/16`), while the LAN interface is assigned the first IP address in the local network (`192.168.1.1/24`).
+## Planning Hypervisor host and VMs
 
-![OPNSense interface assignment](/homelab-setup-day-1/opnsense-interface-assignment.png)
+### Planning on services and where to host
 
-After assigning the interface, you can try accessing the router via the web interface, as management will be much easier, by connecting your laptop or desktop computer to a switch, and allowing the router to connect to the same switch. Note that the DHCP server may not be working, so you may also need to assign your client a static IP address.
+Since all servers are running bare metal hypervisors, I decided to run those servers with hypervisor software.
 
-![OPNSense Web Interface](/homelab-setup-day-1/opnsense-web-interface.png)
+- Raspberry Pi 5 will run [LXD](https://canonical.com/lxd) as the management layer, running on top of Ubuntu Server 24.04 LTS.
+- Dell OptiPlex 7050 will run [Windows Server 2022](https://learn.microsoft.com/en-us/windows-server/get-started/whats-new-in-windows-server-2022) with the [Hyper-V](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/) role enabled. It will host Windows Server VMs, since Active Directory is the core service of my network, and it runs best on Windows Server VMs hosted on Hyper-V. *Note that the Windows Server edition must be Datacenter, [because the Standard Edition only supports up to 2 VMs of Windows Server instance running](/homelab-setup-day-0/Core-based_licensing_guidance.pdf).*
 
-You can configure additional advanced features, such as network monitoring, to quickly troubleshoot issues in case of internet connection loss.
+Moreover, some roles and services must be installed for manageability, security, or backup.
 
-![OPNSense Uplink Monitoring](/homelab-setup-day-1/opnsense-uplink-monitor.png)
+- Shell service: **On Windows Server**, it is Windows Remote Management (WinRM) over PowerShell and Windows Management Instrumentation (WMI). However, I prefer using WinRM with PowerShell over WMI, as WMI is designed for complex scripting with .NET Framework 4.8. **On Ubuntu Server**, it is Secure Shell (`sshd`). It may need to disable access using a password and only authenticate with a certificate.
+- Manage via web interface: **On Windows Server**, it is [Windows Admin Center](https://www.microsoft.com/en-us/windows-server/windows-admin-center). **On Ubuntu Server**, it is [Cockpit](https://cockpit-project.org/).
+- Additionally, Windows Server will have to install those features for further system investigation and backup: Microsoft Defender Antivirus, Setup and Boot Event Collection, System Data Archiver, System Insights, and Windows Server Backup.
 
-### Download & install new Windows hypervisor host on HV01
+### Roles and Services running on VMs
 
-For the Windows Server installation, it is pretty much straight forward - you click the installation, select "Windows Server 2022 Datacenter Evaluation (Desktp Experience)", do the partitioning, and let the installer does the rest for you
+For servers as VMs running on Windows Server Hyper-V:
 
-![Windows Server setup experience](/homelab-setup-day-1/windows-server-setup.png)
+1. 2 domain controllers: Active Directory Domain Services (AD DS), Active Directory Certificate Services (AD CS), and DNS Server.
+2. Authentication server: Active Directory Federation Services (AD FS), Network Policy and Access Services (NPS), and all RSAT features.
+3. Database server: [Microsoft SQL Server 2022](https://www.microsoft.com/en-us/sql-server/sql-server-2022).
+4. Web Server: [Web Server (IIS)](https://learn.microsoft.com/en-us/iis/get-started/introduction-to-iis/introduction-to-iis-architecture).
+5. [Windows Server Update Service](https://learn.microsoft.com/en-us/windows-server/administration/windows-server-update-services/get-started/windows-server-update-services-wsus)
+6. [A Keycloak server](https://www.keycloak.org/) as compatible layer with OIDC and SAML.
 
-Once the setup is complete, you will be rebooted into the Windows OOBE screen. Since the installation medium is *"Evaluation"*, you may need to convert into *Production*, by using this command
+For the server as VMs running on LXD:
 
-```cmd
-dism /online /Set-Edition:ServerDatacenter /ProductKey:<Your product key> /AcceptEula
-```
+1. The exit relay DNS server: [Pi-Hole Ad-blocker](https://pi-hole.net/).
+2. DevOps server: [GitLab EE](https://about.gitlab.com/enterprise/).
+3. DevOps Runner: [GitLab Runner](https://docs.gitlab.com/runner/)
+4. Disposable DaaS Server: [KASM Instance](https://www.kasmweb.com/docs/develop/index.html)
 
-In case you don't have a product key, but still want to escape the evaluation mode, you can try using the [KMS public key by Microsoft](https://learn.microsoft.com/en-us/windows-server/get-started/kms-client-activation-keys?tabs=windows102016%2Cwindows81%2Cserver2025%2Cversion1803#windows-server-ltsc)
-. Note that you may need to restart the server right after
+## Networking
 
-Another consideration is uninstalling optional features and apps, such as Microsoft Edge, Microsoft Paint, and Windows Hello. It is nice to know that Edge is considered as optional feature in Windows Server, so you can uninstall it in **Control Panel**, or in the **System Setting > App** and **System Setting > Optional Features**. A optional features installed should look like this
+### Local Domain Names
 
-![Windows Server Optional Features](/homelab-setup-day-1/windows-server-optional-features-list.png)
+Since this is only for the home network, the TLDs of the domain should ideally not be published or used publicly to prevent conflicts with the wider Internet. For example, avoid using `.com` or `.net`. Also, avoid using the `.local` domain, as it causes mDNS issues.
 
-After everything above are done, you can install **Hyper-V** roles onto the hypervisor host, and features such as **Network Virtualization**, **Windows Server Backup**, **System Data Archiver**, and **System Insights**
+As the best practice, look for [registered TLDs on IANA](https://www.iana.org/domains/root/db) to prevent conflicts for a local domain name.
 
-Another note for the Hyper-V host is turn on the Remote Desktop, with secure connection, so you can remotely control it without always plug your monitor, keyboard, and mouse into it.
+In this case, I will use the domain `workshop.neko`. Alternatively, `web.neko` is used for web deployments. (eg. IIS host or GitLab Pages).
 
-![Windows Server enable RDP](/homelab-setup-day-1/windows-server-enable-rdp.png)
+## Hypervisor disk partitioning and disk-based computing for backup plans
 
-Once everything above is done, try to restart the Windows Server, installing drivers and get latest drivers for hardware, restart it again, and put into ready for installing new virtual machines on top of it.
+### On the HV01 (running Windows Server 2022)
 
-### Download & install new Windows hypervisor host on HV02
+HV01 on Dell OptiPlex 7050 has two disks, both in good condition.
 
-For the LXD installation on HV02 (Raspberry Pi 5), it is required to install a Ubuntu server 24.04 (Noble) distro on top of that. To install Ubuntu Server 24.04, you can follow this instruction on [Ubuntu](https://ubuntu.com/download/raspberry-pi)
+Since the system must also have a backup solution, I decided to do the following partition scheme:
 
-After successfully installing the Ubuntu on Raspberry Pi, you should follow the Ubuntu Documentation, to finalize the installation, including
+- On the nNVME SSD: Since the SSD has fast I/O, it will become the primary disk, where it holds both the host operating system and all VM contents (incl. disks, configurations, and snapshots).
+- On the SATA SSD: It is much slower, but more reliable, so it becomes the secondary disk for holding backup contents, incl. backup of host machine, backup of VMs (VMs will send backups via SMB to the host).
 
-- Run the packages updates
+### On the HV02 (running Ubuntu Server 24.04 LTS)
 
-    ```bash
-    sudo apt update && sudo apt full-upgrade -y
-    sudo snap refresh
-    ```
+HV02 on Raspberry Pi 5 has 2 disks, both in good condition.
 
-- [Console security](https://ubuntu.com/server/docs/how-to/security/console-security/)
-- [AppArmor](https://ubuntu.com/server/docs/how-to/security/apparmor/)
-- [Firewall](https://ubuntu.com/server/docs/how-to/security/firewalls/). Personally, I recommend using `firewalld` instead of `ufw`
-- [OpenSSH Server](https://ubuntu.com/server/docs/how-to/security/openssh-server/)
-- [Root CA Certificate](https://ubuntu.com/server/docs/how-to/security/install-a-root-ca-certificate-in-the-trust-store/). It is very useful later, when you configure Active Directory Certificate Service with customized SSL/TLS certificate.
-
-![LXD setup](/homelab-setup-day-1/lxd-setup.png)
-
-> It is recommended to subscribe for free [Ubuntu Pro](https://ubuntu.com/pro). Ubuntu Pro gives you up to 5 machines on free plan, also Ubuntu Security Guide (`usg`) - a small but powerful tool that help you patch the server. For more information, see [more about `usg`](https://ubuntu.com/security/certifications/docs/usg)
-
-![Ubuntu Security Guide](/homelab-setup-day-1/usg-list.png)
-
-Don't forget to assign static IP address for your HV02
-
-Once restarting the machine after hardening the server, you now can install [LXD from Snap](https://snapcraft.io/lxd).
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/wqEH_d8LC1k?si=x9Rf-u_vuILsTdFV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-Another consideration is installing Cockpit for Web Management onto HV02. With cockpit, you can easily manage firewall (`firewalld` only, that's why I recommend `firewalld` over `ufw`), configure disks, view updates, and so on.
-
-![Cockpit Web Management](/homelab-setup-day-1/cockpit-on-hv02.png)
+- On SSD: Since it stores both the backup content sent from HV01 over the network, it should be at least the size of the OptiPlex 7050 backup partition, and the rest for the OS and all VMs.
+- On the SD card: It is much slower than the SSD, so it will become a backup solution for the operating system on Raspberry Pi 5.
