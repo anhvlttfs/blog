@@ -12,7 +12,7 @@ This is the day three of **TheFlightSims Challenge** - A 10-day challenge to set
 
 # Configure Active Directory Certification Services
 
-## Install & configure the first root Certification Authority on DC01
+## Install & configure the root Certification Authority on DC01
 
 To install AD CS Authority Service on DC01, to handle certification requests, you can use this [script to perform automated installation](/homelab-setup-day-3/Install-ADCS.ps1) on DC01
 
@@ -75,3 +75,43 @@ if ($isADCSInstalled) {
 ```
 
 ![Promoting AD CS on DC01](/homelab-setup-day-3/promote-ad-cs-dc01.png)
+
+## Install & configure the subroot Certification Authority on DC02
+
+Once the promotion of the root CA on DC01 is completed, it is recommended to have a secondary Certification Authority on the Active Directory instance, so in case an authority service on a single server is crashed, you still can handle certification requests.
+
+To do this, do the installation as same as on DC01, however, when promoting, you should try this [subroot CA promotion, not root CA promotion](/homelab-setup-day-3/Promote-SubRootADCS.ps1).
+
+```powershell
+$domain = "workshop.neko"
+$caName = "workshop-DC01-CA"
+
+# Check if the ADDS roles are installed
+$isADCSInstalled = $false
+$adcsRoleStatus = Get-WindowsFeature -Name "ADCS-Cert-Authority"
+if ($adcsRoleStatus.InstallState -eq "Installed") {
+    Write-Host "AD CS Services are installed!"
+    $isADCSInstalled = $true
+} else {
+    Write-Host "AD CS Services are not installed!" -ForegroundColor Red
+}
+
+if ($isADCSInstalled) {
+    Write-Host "Promoting current server to Subroot CA"
+    Install-AdcsCertificationAuthority `
+        -CAType EnterpriseSubordinateCa `
+		-ParentCA "DC01.$domain\$caName"
+} else {
+    Write-Host "Unable to install AD CS because of absent of Certificate Service installed" -ForegroundColor Red
+}
+```
+
+![Promote subroot on DC02](/homelab-setup-day-3/promote-subroot-dc02.png)
+
+## Further configuration on RSAT
+
+Since both DC01 and DC02 are running on Windows Server Core (no GUI possible), so you may need to configure AD CS services on Windows client
+
+First thing to consider is enable auditing, to track configuration changes, certification requests, and so on.
+
+![Enable Auditing](/homelab-setup-day-3/enable-auditing.png)
