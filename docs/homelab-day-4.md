@@ -9,3 +9,7 @@ tags: [homelab, local-networking, active-directory]
 ---
 
 This is the day four of **TheFlightSims Challenge** - A 10-day challenge to set up a full-stack enterprise network at home, with Microsoft Active Directory, DevOps, and so on.
+
+# Configure Microsoft SQL Server
+
+
