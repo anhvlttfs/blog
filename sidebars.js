@@ -14,7 +14,8 @@ module.exports = {
         'homelab-day-0',
         'homelab-day-1',
         'homelab-day-2',
-        'homelab-day-3'
+        'homelab-day-3',
+        'homelab-day-4'
       ],
     },
   ],
